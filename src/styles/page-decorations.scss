@@ -1,0 +1,113 @@
+.decorated-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-decorations {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.page-decoration {
+  position: absolute;
+  height: auto;
+  opacity: 0.34;
+  filter: drop-shadow(0 12px 20px rgba(52, 57, 111, 0.08));
+  transform-origin: center;
+  will-change: transform, opacity;
+
+  &--float {
+    animation: nallipop-decoration-float 7s ease-in-out var(--decoration-delay, 0s) infinite alternate;
+  }
+
+  &--sway {
+    animation: nallipop-decoration-sway 9s ease-in-out var(--decoration-delay, 0s) infinite alternate;
+  }
+
+  &--twinkle {
+    animation: nallipop-decoration-twinkle 5.6s ease-in-out var(--decoration-delay, 0s) infinite;
+  }
+}
+
+.decorated-page .button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -40% auto -40% -45%;
+    z-index: -1;
+    width: 34%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+    transform: skewX(-20deg) translateX(-180%);
+    transition: transform 0.65s ease;
+  }
+
+  &:hover::after {
+    transform: skewX(-20deg) translateX(620%);
+  }
+}
+
+@keyframes nallipop-decoration-float {
+  from {
+    transform: translate3d(0, 0, 0) rotate(var(--decoration-rotation, 0deg));
+  }
+  to {
+    transform: translate3d(8px, -15px, 0) rotate(calc(var(--decoration-rotation, 0deg) + 5deg));
+  }
+}
+
+@keyframes nallipop-decoration-sway {
+  from {
+    transform: translate3d(-7px, 4px, 0) rotate(calc(var(--decoration-rotation, 0deg) - 3deg));
+  }
+  to {
+    transform: translate3d(10px, -8px, 0) rotate(calc(var(--decoration-rotation, 0deg) + 4deg));
+  }
+}
+
+@keyframes nallipop-decoration-twinkle {
+  0%,
+  100% {
+    opacity: 0.24;
+    transform: scale(0.94) rotate(var(--decoration-rotation, 0deg));
+  }
+  50% {
+    opacity: 0.48;
+    transform: scale(1.06) rotate(calc(var(--decoration-rotation, 0deg) + 5deg));
+  }
+}
+
+@media (max-width: 1120px) {
+  .page-decoration {
+    opacity: 0.2;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-decoration {
+    width: min(var(--decoration-mobile-width, 72px), 18vw) !important;
+    opacity: 0.14;
+
+    &:nth-child(even) {
+      display: none;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-decoration {
+    animation: none !important;
+    transform: rotate(var(--decoration-rotation, 0deg));
+  }
+
+  .decorated-page .button::after {
+    display: none;
+  }
+}

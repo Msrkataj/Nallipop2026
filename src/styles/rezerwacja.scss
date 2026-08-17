@@ -1,0 +1,508 @@
+.reservation-page {
+  --reservation-ink: #27304f;
+  --reservation-muted: #727994;
+  --reservation-turquoise: #2ed3c6;
+  --reservation-purple: #768be5;
+  --reservation-pink: #d48cc9;
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--reservation-ink);
+  background: linear-gradient(#f8fffe 0%, #fff9fd 38%, #fffdf8 100%);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+
+  .intro {
+    position: relative;
+    z-index: 1;
+    width: min(850px, calc(100% - 40px));
+    margin: 68px auto 53px;
+    text-align: center;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 999px;
+    color: #687dde;
+    background: #eef0ff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 730px;
+    margin: 19px auto 15px;
+    color: var(--reservation-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(39px, 5.3vw, 66px);
+    font-weight: 400;
+    letter-spacing: -3px;
+    line-height: 1.03;
+  }
+
+  h1 em {
+    position: relative;
+    display: inline-block;
+    color: var(--reservation-turquoise);
+    font-style: normal;
+  }
+
+  h1 em::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    left: 2%;
+    height: 8px;
+    border-top: 3px solid #f1bf54;
+    border-radius: 50%;
+    transform: rotate(-2deg);
+  }
+
+  .intro > p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--reservation-muted);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .intro-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .intro-pills > span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px 9px 9px;
+    border: 1px solid #edf0f6;
+    border-radius: 999px;
+    color: #68708c;
+    background: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 8px 25px rgba(96, 116, 156, 0.043);
+  }
+
+  .intro-pills b {
+    display: grid;
+    place-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--reservation-turquoise);
+    font-size: 12px;
+  }
+
+  .intro-pills span:nth-child(2) b { background: var(--reservation-purple); }
+  .intro-pills span:nth-child(3) b { background: var(--reservation-pink); }
+
+  .form-card {
+    position: relative;
+    z-index: 1;
+    width: min(960px, calc(100% - 32px));
+    margin: 0 auto 60px;
+    overflow: hidden;
+    border: 1px solid rgba(228, 231, 247, 0.85);
+    border-radius: 34px;
+    background: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 28px 80px rgba(67, 73, 117, 0.12);
+  }
+
+  .form-section {
+    padding: 42px 52px 46px;
+    border-bottom: 1px solid #edf0f7;
+  }
+
+  .form-section:nth-child(even) { background: #fcfcff; }
+  .last-section { border: 0; }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: none;
+    margin: 0 0 27px;
+    text-align: left;
+  }
+
+  .section-heading h2 {
+    display: block;
+    margin: 0 0 4px;
+    color: var(--reservation-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    line-height: 1.5;
+  }
+
+  .section-heading h2::after { display: none; }
+
+  .section-heading p {
+    margin: 0;
+    color: var(--reservation-muted);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .section-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    border-radius: 15px;
+    color: #13a99e;
+    background: #e8fbf9;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .section-icon.purple { color: var(--reservation-purple); background: #eef0ff; }
+  .section-icon.pink { color: #bf70b3; background: #faedf7; }
+  .section-icon.yellow { color: #d49b22; background: #fff6dc; }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .three-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .field > span {
+    color: #555e7b;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .field-wide { grid-column: 1 / -1; }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 14px 15px;
+    border: 1.5px solid #e3e6f1;
+    border-radius: 14px;
+    outline: none;
+    color: var(--reservation-ink);
+    background: #fff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+
+  input::placeholder,
+  textarea::placeholder { color: #a7acbd; }
+
+  input[type="date"],
+  input[type="time"] { height: 53.5px; }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--reservation-turquoise);
+    box-shadow: 0 0 0 4px rgba(46, 211, 198, 0.12);
+  }
+
+  select {
+    appearance: none;
+    padding-right: 38px;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #77809a 50%),
+      linear-gradient(135deg, #77809a 50%, transparent 50%);
+    background-position: calc(100% - 20px) 21px, calc(100% - 15px) 21px;
+    background-repeat: no-repeat;
+    background-size: 5px 5px;
+  }
+
+  textarea {
+    min-height: 125px;
+    line-height: 1.55;
+    resize: vertical;
+  }
+
+  .attractions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 0;
+  }
+
+  .attraction {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 62px;
+    padding: 12px 46px 12px 13px;
+    border: 1.5px solid color-mix(in srgb, var(--attraction-accent) 22%, #e5e8f1);
+    border-radius: 16px;
+    color: #505875;
+    background: linear-gradient(105deg, var(--attraction-background) 0%, #fff 52%, #fff 100%);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--attraction-accent);
+      opacity: 0.72;
+      transition: width 0.2s ease, opacity 0.2s ease;
+    }
+  }
+
+  .attraction:hover {
+    border-color: var(--attraction-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px color-mix(in srgb, var(--attraction-accent) 18%, transparent);
+
+    &::before { width: 7px; opacity: 1; }
+    .mini-icon { transform: scale(1.08) rotate(-2deg); }
+  }
+
+  .attraction input {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mini-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: var(--attraction-background);
+    border: 1px solid color-mix(in srgb, var(--attraction-accent) 16%, transparent);
+    overflow: hidden;
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--attraction-accent) 12%, transparent);
+    transition: transform 0.2s ease;
+  }
+
+  .mini-icon img {
+    display: block;
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+  }
+
+  .check {
+    position: absolute;
+    right: 15px;
+    display: grid;
+    place-items: center;
+    width: 23px;
+    height: 23px;
+    border: 1.5px solid #dfe3ee;
+    border-radius: 8px;
+    color: transparent;
+    font-size: 13px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .attraction:has(input:checked) {
+    border-color: var(--attraction-accent);
+    background: linear-gradient(105deg, var(--attraction-background) 0%, #fff 78%);
+    box-shadow: 0 10px 26px color-mix(in srgb, var(--attraction-accent) 17%, transparent);
+
+    &::before { width: 7px; opacity: 1; }
+    .attraction__name { color: var(--attraction-accent); }
+  }
+
+  .attraction input:checked + .check {
+    color: #fff;
+    background: var(--attraction-accent);
+    border-color: var(--attraction-accent);
+    transform: scale(1.08);
+  }
+
+  .attraction__name { transition: color 0.2s ease; }
+
+  .attraction:has(input:focus-visible) {
+    outline: 3px solid rgba(118, 139, 229, 0.25);
+    outline-offset: 2px;
+  }
+
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 20px 0 24px;
+    color: var(--reservation-muted);
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .consent input {
+    width: 17px;
+    height: 17px;
+    margin-top: 1px;
+    padding: 0;
+    accent-color: var(--reservation-purple);
+  }
+
+  .consent a {
+    color: #6553b8;
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .sensitive-data-warning {
+    display: block;
+    margin-top: 9px;
+    padding: 11px 13px;
+    border-left: 3px solid #e67bab;
+    border-radius: 8px;
+    color: #7b526b;
+    background: #fff4f8;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .form-note a {
+    color: #6553b8;
+    font-weight: 800;
+    text-decoration: underline;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    min-height: 58px;
+    border: 0;
+    border-radius: 17px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--reservation-purple), #8f79df);
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    transition: 0.2s;
+    box-shadow: 0 12px 28px rgba(118, 139, 229, 0.28);
+  }
+
+  button[type="submit"] span {
+    margin-left: 8px;
+    font-size: 21px;
+    vertical-align: -1px;
+  }
+
+  button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(118, 139, 229, 0.34);
+  }
+
+  button[type="submit"]:disabled { cursor: wait; opacity: 0.7; }
+
+  .form-note {
+    margin: 13px 0 0;
+    color: #9399ab;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .success {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 22px;
+    padding: 17px 19px;
+    border: 1px solid #bceee8;
+    border-radius: 16px;
+    color: #2d706a;
+    background: #ecfbf8;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .success b { color: #197d74; font-size: 16px; }
+  .success.error { color: #9d365f; background: #fff1f6; border-color: #f5c7d9; }
+
+  footer {
+    padding: 0 20px 45px;
+    color: #9298ab;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  footer span { color: var(--reservation-purple); font-weight: 800; }
+
+  .bubble {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    border-radius: 50%;
+    opacity: 0.8;
+    pointer-events: none;
+    box-shadow: inset 5px 5px 18px rgba(255, 255, 255, 0.75), 0 10px 30px rgba(118, 139, 229, 0.08);
+  }
+
+  .bubble::after {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 22%;
+    width: 24%;
+    height: 16%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    transform: rotate(-35deg);
+  }
+
+  .bubble-one { top: 135px; left: -55px; width: 150px; height: 150px; background: rgba(46, 211, 198, 0.12); }
+  .bubble-two { top: 260px; right: 3%; width: 96px; height: 96px; background: rgba(212, 140, 201, 0.12); }
+  .bubble-three { top: 520px; left: 5%; width: 52px; height: 52px; background: rgba(118, 139, 229, 0.1); }
+}
+
+@media (max-width: 720px) {
+  .reservation-page {
+    .intro { margin-top: 42px; }
+    h1 { letter-spacing: -2px; }
+    .form-card { border-radius: 25px; }
+    .form-section { padding: 32px 24px 36px; }
+    .form-grid, .three-columns, .attractions { grid-template-columns: 1fr; }
+    .field-wide { grid-column: auto; }
+    .section-heading { align-items: flex-start; }
+    .intro-pills > span { font-size: 12px; }
+  }
+}
+
+@media (max-width: 430px) {
+  .reservation-page {
+    .intro { width: calc(100% - 28px); }
+    .intro > p { font-size: 15px; }
+    .intro-pills { gap: 7px; }
+    .intro-pills > span { padding-right: 10px; }
+    .form-card { width: calc(100% - 20px); }
+    .form-section { padding-inline: 18px; }
+  }
+}

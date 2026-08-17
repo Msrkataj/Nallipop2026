@@ -1,0 +1,464 @@
+{
+  "hero": {
+    "title": "Atrakcje, które tworzą",
+    "highlight": "niezapomniane chwile",
+    "description": "Wybierz kategorię, która Cię interesuje, i poznaj atrakcje dopasowane do wieku oraz charakteru wydarzenia.",
+    "badge": "Ponad 30 atrakcji, do których dzieci zawsze chcą wracać!"
+  },
+  "breadcrumb": {
+    "home": "Strona główna",
+    "current": "Atrakcje"
+  },
+  "sections": {
+    "categoryHeading": "Wybierz kategorię atrakcji"
+  },
+  "cta": {
+    "title": "Nie wiesz, które atrakcje będą najlepsze?",
+    "description": "Napisz do nas, pomożemy dobrać idealny program dopasowany do wieku dzieci i charakteru wydarzenia.",
+    "button": "Skontaktuj się z nami"
+  },
+  "footer": {
+    "logoSubtitle": "Animacje i warsztaty dla dzieci",
+    "description": "Tworzymy niezapomniane chwile dla dzieci pełne uśmiechu, zabawy i kreatywności.",
+    "navigationTitle": "Nawigacja",
+    "contactTitle": "Kontakt",
+    "areaTitle": "Działamy na terenie Warszawy i okolic",
+    "phone": "+48 795 103 108",
+    "email": "animacje@nallipop.pl",
+    "location": "Warszawa i okolice"
+  },
+  "categories": [
+    {
+      "id": "animacje-podstawowe",
+      "icon": "🏃",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/podstawa.png",
+      "title": "Animacje podstawowe",
+      "description": "Ruch, śmiech i energia! Sprawdzone zabawy, które angażują każde dziecko.",
+      "color": "#16c9c3",
+      "subcategories": [
+        {
+          "id": "ruchowe",
+          "title": "Zabawy ruchowe",
+          "intro": "Gry zespołowe, wyścigi, tory przeszkód i aktywności, które wyzwalają dziecięcą energię.",
+          "items": [
+            {
+              "title": "Tor przeszkód",
+              "text": "Różnorodne przeszkody, które rozwijają sprawność i współpracę.",
+              "image": "/images/atrakcje/podstawa/tor_przeszkod.webp"
+            },
+            {
+              "title": "Przeciąganie liny",
+              "text": "Klasyczna zabawa, która uczy współpracy i daje mnóstwo śmiechu.",
+              "image": "/images/atrakcje/podstawa/przeciaganie_liny.webp"
+            },
+            {
+              "title": "Zbieranie piłeczek",
+              "text": "Kto zbierze więcej? Szybka, dynamiczna zabawa pełna emocji.",
+              "image": "/images/atrakcje/podstawa/zbieranie_pileczek.webp"
+            },
+            {
+              "title": "Wyścigi w workach",
+              "text": "Skakanie, śmiech i zdrowa rywalizacja na każdą okazję.",
+              "image": "/images/atrakcje/podstawa/wyscig_w_workach.webp"
+            },
+            {
+              "title": "Zabawy z piłkami",
+              "text": "Rzuty, podania i trafianie do celu w jednym energicznym bloku.",
+              "image": "/images/oferta/service-festyny.webp"
+            },
+            {
+              "title": "Gąsienica",
+              "text": "Razem tworzymy gąsienicę i poruszamy się do celu.",
+              "image": "/images/atrakcje/podstawa/gasienica.webp"
+            },
+            {
+              "title": "Limbo",
+              "text": "Ile razy przejdziesz pod liną? Uginaj się i baw do muzyki.",
+              "image": "/images/atrakcje/podstawa/limbo.webp"
+            },
+            {
+              "title": "Belgijka",
+              "text": "Energiczny taniec integracyjny, który szybko porywa całą grupę.",
+              "image": "/images/atrakcje/podstawa/belgijka.webp"
+            },
+            {
+              "title": "Zamiana miejsc",
+              "text": "Szybka zabawa na refleks, spostrzegawczość i dużo śmiechu.",
+              "image": "/images/atrakcje/podstawa/zamiana_miejsc.webp"
+            },
+            {
+              "title": "Sztafety drużynowe",
+              "text": "Zabawy drużynowe, które uczą współpracy i zdrowej rywalizacji.",
+              "image": "/images/oferta/service-polkolonie.webp"
+            }
+          ]
+        },
+        {
+          "id": "chusta",
+          "title": "Zabawy z chustą animacyjną",
+          "intro": "Kolorowe fale, wspólne zadania i spokojniejsza integracja całej grupy.",
+          "items": [
+            {
+              "title": "Kolorowe fale",
+              "text": "Dzieci tworzą rytm i uczą się reagować na sygnały animatora.",
+              "image": "/images/atrakcje/podstawa/kolorowa-Karuzela.webp"
+            },
+            {
+              "title": "Piłeczki na chuście",
+              "text": "Wspólne podrzucanie i łapanie piłeczek.",
+              "image": "/images/atrakcje/podstawa/podrzucanie-pilek-chusta.webp"
+            },
+            {
+              "title": "Kto pod chustą?",
+              "text": "Zabawa integracyjna pełna śmiechu i zaskoczeń.",
+              "image": "/images/atrakcje/podstawa/chusta_rekin.webp"
+            },
+            {
+              "title": "Tęczowy namiot",
+              "text": "Chwila oddechu i magiczny efekt dla najmłodszych.",
+              "image": "/images/atrakcje/podstawa/chusta_spadochron.webp"
+            },
+            {
+              "title": "Popcorn z chustą",
+              "text": "Piłeczki podskakują jak popcorn, a dzieci wspólnie pilnują rytmu.",
+              "image": "/images/atrakcje/podstawa/popcorn_chusta.webp"
+            }
+          ]
+        },
+        {
+          "id": "muzyka",
+          "title": "Tańce i zabawy przy muzyce",
+          "intro": "Mini disco, układy taneczne i zadania muzyczne dla dzieci w każdym wieku.",
+          "items": [
+            {
+              "title": "Mini disco",
+              "text": "Proste choreografie, które szybko porywają grupę do tańca.",
+              "image": "/images/atrakcje/zabawy_tematyczne/disco_party.webp"
+            },
+            {
+              "title": "Stop-klatka",
+              "text": "Tańczymy, zatrzymujemy się i łapiemy najzabawniejsze pozy.",
+              "image": "/images/atrakcje/podstawa/stop_klatka.webp"
+            },
+            {
+              "title": "Muzyczne krzesła",
+              "text": "Klasyczna zabawa w bezpiecznej, dziecięcej wersji.",
+              "image": "/images/atrakcje/podstawa/muzyczne_krzesla.webp"
+            },
+            {
+              "title": "Taniec z balonem",
+              "text": "Dużo śmiechu i delikatnej współpracy w parach.",
+              "image": "/images/atrakcje/podstawa/taniec_z_balonem.webp"
+            },
+            {
+              "title": "Belgijka",
+              "text": "Taneczna integracja, która świetnie sprawdza się przy starszych dzieciach.",
+              "image": "/images/atrakcje/podstawa/belgijka.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "atrakcje-specjalne",
+      "icon": "🫧",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/dodatkowe.png",
+      "title": "Atrakcje specjalne",
+      "description": "Widowiskowe dodatki, kreatywne pamiątki i niezapomniany efekt WOW.",
+      "color": "#ff7ab8",
+      "subcategories": [
+        {
+          "id": "efekty",
+          "title": "Bańki i pokazy",
+          "intro": "Widowiskowe atrakcje prowadzone przez animatora, które wywołują prawdziwy efekt WOW.",
+          "items": [
+            {
+              "title": "Bańki XXL",
+              "text": "Ogromne bańki, bańkowe tunele i lekki spektakl.",
+              "image": "/images/atrakcje/warsztaty/banki_xxl.webp"
+            },
+            {
+              "title": "Zamykanie w bańce",
+              "text": "Dziecko w wielkiej bańce to zawsze wielki zachwyt. Atrakcja dostępna wyłącznie w pomieszczeniu.",
+              "image": "/images/atrakcje/dodatkowe_wow/zamykanie_w_bance.webp"
+            },
+            {
+              "title": "Dmuchańce",
+              "text": "Ruch, skakanie i atrakcja, która zajmuje dzieci na długo.",
+              "image": "/images/atrakcje/dodatkowe_wow/dmuchance.webp"
+            }
+          ]
+        },
+        {
+          "id": "finaly-i-pamiatki",
+          "title": "Finały i pamiątki",
+          "intro": "Kolorowe dodatki, które urozmaicają wydarzenie i zostawiają dzieciom piękne wspomnienia.",
+          "items": [
+            {
+              "title": "Piniata",
+              "text": "Kolorowy finał imprezy i słodka niespodzianka.",
+              "image": "/images/atrakcje/dodatkowe_wow/piniaty.webp"
+            },
+            {
+              "title": "Piniata XXL",
+              "text": "Większy finał dla większej grupy dzieci i jeszcze więcej emocji.",
+              "image": "/images/atrakcje/dodatkowe_wow/piniaty_xxl.webp"
+            },
+            {
+              "title": "Modelowanie balonów",
+              "text": "Zwierzaki, miecze, kwiatki i inne balonowe cuda.",
+              "image": "/images/atrakcje/dla_najmlodszych/balonowe_zwierzaki.webp"
+            },
+            {
+              "title": "Konfetti show",
+              "text": "Krótki efekt na wejście lub zakończenie zabawy.",
+              "image": "/images/banner-kids.webp"
+            },
+            {
+              "title": "Strefa zdjęć",
+              "text": "Kolorowe rekwizyty i pamiątki z wydarzenia.",
+              "image": "/images/oferta/service-eventy.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "warsztaty-eksperymenty",
+      "icon": "🎨",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/warsztaty.png",
+      "title": "Warsztaty i eksperymenty",
+      "description": "Tworzymy, malujemy, eksperymentujemy i rozwijamy wyobraźnię.",
+      "color": "#a681ff",
+      "subcategories": [
+        {
+          "id": "kreatywne-diy",
+          "title": "Kreatywne DIY",
+          "intro": "Twórcza zabawa i własnoręcznie wykonane pamiątki, które dzieci zabierają do domu.",
+          "items": [
+            {
+              "title": "Malowanie twarzy",
+              "text": "Delikatne wzory, bajkowe motywy i bezpieczne farby.",
+              "image": "/images/atrakcje/warsztaty/malowanie_twarzy.webp"
+            },
+            {
+              "title": "Tatuaże brokatowe",
+              "text": "Błyszczące wzory, które dzieci uwielbiają.",
+              "image": "/images/atrakcje/podstawa/tatuaze_broaktowe.webp"
+            },
+            {
+              "title": "Malowanie toreb",
+              "text": "Małe torby z gotowymi wzorami (+100 zł) lub duże torby do stworzenia własnego projektu.",
+              "image": "/images/atrakcje/warsztaty/malowanie_toreb.webp"
+            },
+            {
+              "title": "Kompozycja w słoiku",
+              "text": "Dzieci tworzą własną dekoracyjną kompozycję zamkniętą w słoiku.",
+              "image": "/images/atrakcje/warsztaty/sloiki.webp"
+            },
+            {
+              "title": "Warsztaty slime",
+              "text": "Kolorowa masa, mieszanie składników i dużo sensorycznej frajdy.",
+              "image": "/images/atrakcje/warsztaty/slime.webp"
+            },
+            {
+              "title": "Łapacze snów",
+              "text": "Kolorowe obręcze, wstążki i ozdoby układane w wyjątkową dekorację.",
+              "image": "/images/atrakcje/warsztaty/lapacze_snow.webp"
+            },
+            {
+              "title": "Gniotki",
+              "text": "Sensoryczna zabawa i własnoręcznie wykonana zabawka.",
+              "image": "/images/atrakcje/warsztaty/gniotki_diy.webp"
+            },
+            {
+              "title": "Breloczki",
+              "text": "Małe, kolorowe zawieszki zaprojektowane i wykonane przez dzieci.",
+              "image": "/images/atrakcje/warsztaty/breloczki.webp"
+            },
+            {
+              "title": "Magnesy",
+              "text": "Własne wzory i dekoracje zamienione w praktyczną pamiątkę.",
+              "image": "/images/atrakcje/warsztaty/magnesy.webp"
+            },
+            {
+              "title": "Ramki",
+              "text": "Ozdabianie ramek kolorowymi dodatkami według własnego pomysłu.",
+              "image": "/images/atrakcje/warsztaty/ramki.webp"
+            },
+            {
+              "title": "Lusterka",
+              "text": "Kreatywne dekorowanie lusterek i tworzenie niepowtarzalnych wzorów.",
+              "image": "/images/atrakcje/warsztaty/lusterka.webp"
+            }
+          ]
+        },
+        {
+          "id": "eksperymenty",
+          "title": "Mały naukowiec",
+          "intro": "Bezpieczne doświadczenia, efekt wow i pierwsze naukowe zachwyty.",
+          "items": [
+            {
+              "title": "Eksperymenty",
+              "text": "Mieszanie barw, bezpieczne reakcje i fascynujące zjawiska.",
+              "image": "/images/atrakcje/warsztaty/eksperymenty_kolorow.webp"
+            },
+            {
+              "title": "Eksperymenty z suchym lodem",
+              "text": "Mgła, para i niezwykłe doświadczenia prowadzone przez animatora.",
+              "image": "/images/atrakcje/warsztaty/suchy_lod.webp"
+            },
+            {
+              "title": "Bańkowe laboratorium",
+              "text": "Dzieci sprawdzają, jak powstają wielkie bańki.",
+              "image": "/images/atrakcje/warsztaty/banki_xxl.webp"
+            },
+            {
+              "title": "Mini mikstury",
+              "text": "Bezpieczne składniki i dużo obserwacji.",
+              "image": "/images/atrakcje/warsztaty/mini_mikstury.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "animacje-tematyczne",
+      "icon": "🎭",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/tematyczne.png",
+      "title": "Animacje tematyczne",
+      "description": "Magiczne światy, bajkowi bohaterowie i przygody, które zostają w pamięci.",
+      "color": "#f5a400",
+      "subcategories": [
+        {
+          "id": "bajkowe",
+          "title": "Scenariusze bajkowe",
+          "intro": "Program dopasowany do motywu urodzin lub ulubionej bajki dziecka.",
+          "items": [
+            {
+              "title": "Jednorożce",
+              "text": "Brokat, pastelowe kolory i magiczne zadania.",
+              "image": "/images/atrakcje/zabawy_tematyczne/impreza_jednorozce.webp"
+            },
+            {
+              "title": "Superbohaterowie",
+              "text": "Misje, próby odwagi i drużynowe wyzwania.",
+              "image": "/images/atrakcje/zabawy_tematyczne/impreza_superbohaterow.webp"
+            },
+            {
+              "title": "Kraina lodu",
+              "text": "Zimowe zadania, taniec i bajkowy klimat.",
+              "image": "/images/atrakcje/zabawy_tematyczne/impreza_kraina_lodu.webp"
+            },
+            {
+              "title": "Piraci",
+              "text": "Mapa skarbów, zagadki i wspólna wyprawa.",
+              "image": "/images/atrakcje/zabawy_tematyczne/impreza_piraci.webp"
+            }
+          ]
+        },
+        {
+          "id": "balowe",
+          "title": "Bale tematyczne",
+          "intro": "Większy scenariusz dla przedszkoli, szkół i eventów.",
+          "items": [
+            {
+              "title": "Bal karnawałowy",
+              "text": "Tańce, konkursy i kolorowa oprawa.",
+              "image": "/images/atrakcje/zabawy_tematyczne/bal_karnawalowy.webp"
+            },
+            {
+              "title": "Bal księżniczek",
+              "text": "Eleganckie zadania i dużo pięknych detali.",
+              "image": "/images/oferta/service-wesela.webp"
+            },
+            {
+              "title": "Bal przebierańców",
+              "text": "Integracja grupy i zabawy z rekwizytami.",
+              "image": "/images/banner-kids.webp"
+            },
+            {
+              "title": "Disco party",
+              "text": "Muzyka, światła i dynamiczne animacje.",
+              "image": "/images/atrakcje/zabawy_tematyczne/disco_party.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "animacje-sezonowo",
+      "icon": "🎉",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/sezonowe.png",
+      "title": "Animacje sezonowo",
+      "description": "Dopasowane do pory roku, świąt i wyjątkowych okazji.",
+      "color": "#3e85ff",
+      "subcategories": [
+        {
+          "id": "swieta",
+          "title": "Święta i okazje",
+          "intro": "Programy na Dzień Dziecka, Mikołajki, bale i wydarzenia rodzinne.",
+          "items": [
+            {
+              "title": "Dzień Dziecka",
+              "text": "Energetyczny pakiet atrakcji dla większych grup.",
+              "image": "/images/atrakcje/atrakcje_sezonowe/dzien_dziecka.webp"
+            },
+            {
+              "title": "Mikołajki",
+              "text": "Zadania zimowe, kreatywne prace i świąteczny klimat.",
+              "image": "/images/atrakcje/atrakcje_sezonowe/mikolajki_swieta.webp"
+            },
+            {
+              "title": "Karnawał",
+              "text": "Maski, tańce i kolorowe konkursy.",
+              "image": "/images/atrakcje/atrakcje_sezonowe/karnawal.webp"
+            },
+            {
+              "title": "Piknik rodzinny",
+              "text": "Strefy zabawy dla dzieci w różnym wieku.",
+              "image": "/images/atrakcje/atrakcje_sezonowe/piknik_rodzinny.webp"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "animacje-dla-najmlodszych",
+      "icon": "👶",
+      "iconImage": "/images/atrakcje/atrakcje_ikony/najmlodszych.png",
+      "title": "Animacje dla najmłodszych",
+      "description": "Delikatne, bezpieczne i dostosowane do wieku maluchów.",
+      "color": "#60d7b1",
+      "subcategories": [
+        {
+          "id": "sensoryczne",
+          "title": "Zabawy sensoryczne",
+          "intro": "Spokojniejszy rytm, bezpieczne materiały i dużo odkrywania.",
+          "items": [
+            {
+              "title": "Kolorowe sortowanie",
+              "text": "Proste zadania wspierające koncentrację.",
+              "image": "/images/atrakcje/dla_najmlodszych/kolorowanie_sortowanie.webp"
+            },
+            {
+              "title": "Miękkie tory",
+              "text": "Ruch bez presji, dopasowany do maluchów.",
+              "image": "/images/atrakcje/dla_najmlodszych/miekie_tory.webp"
+            },
+            {
+              "title": "Balonowe zwierzaki",
+              "text": "Delikatne modelowanie i wspólne oglądanie efektów.",
+              "image": "/images/atrakcje/dla_najmlodszych/balonowe_zwierzaki.webp"
+            },
+            {
+              "title": "Mini bańki",
+              "text": "Łagodna wersja bańkowej atrakcji.",
+              "image": "/images/atrakcje/banki-xxl.webp"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
