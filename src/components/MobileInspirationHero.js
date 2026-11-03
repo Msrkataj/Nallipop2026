@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { inspirationIdeas, couponIdea, inspirationContactHref } from "@/data/inspiration-ideas.mjs";
+import { inspirationPhotos } from "@/data/inspiration-photos";
 import styles from "./MobileInspirationHero.module.scss";
 
 const moods = [
@@ -14,9 +15,34 @@ const moods = [
 ];
 const ideaById = id => inspirationIdeas.find(idea => idea.id === id) || couponIdea;
 const initialCards = [...inspirationIdeas, couponIdea];
+const photoSizes = "(max-width: 440px) 55vw, 240px";
+const preparedPhotos = new Map();
+
+function preparePhoto(idea) {
+  const { props } = getImageProps({ src: inspirationPhotos[idea.id], alt: idea.title, width: 420, height: 300, sizes: photoSizes });
+  const key = `${props.srcSet}:${window.innerWidth}:${window.devicePixelRatio}`;
+  if (preparedPhotos.has(key)) return preparedPhotos.get(key);
+  const prepared = new Promise(resolve => {
+    const image = new window.Image();
+    const timeout = setTimeout(() => finish(false), 8000);
+    function finish(loaded) {
+      clearTimeout(timeout);
+      image.onload = image.onerror = null;
+      if (!loaded) preparedPhotos.delete(key);
+      resolve(loaded);
+    }
+    image.onload = () => image.decode().then(() => finish(true), () => finish(false));
+    image.onerror = () => finish(false);
+    image.sizes = props.sizes;
+    image.srcset = props.srcSet;
+    image.src = props.src;
+  });
+  preparedPhotos.set(key, prepared);
+  return prepared;
+}
 
 function Photo({ idea, ...props }) {
-  return <Image src={idea.image} alt={idea.title} width={420} height={300} sizes="(max-width: 700px) 55vw, 220px" style={{ objectPosition: idea.position }} {...props} />;
+  return <Image src={inspirationPhotos[idea.id]} alt={idea.title} width={420} height={300} sizes={photoSizes} placeholder="blur" style={{ objectPosition: idea.position, backgroundColor: "#392b4e" }} {...props} />;
 }
 
 function Wheel({ round, onComplete, reducedMotion, canWin }) {
@@ -60,7 +86,7 @@ function Wheel({ round, onComplete, reducedMotion, canWin }) {
   return <div className={styles.wheel} ref={windowRef} aria-hidden="true">
     <span className={styles.pointer}>▼</span>
     {cards.map(idea => <div key={idea.id} ref={node => { if (node) cardRefs.current.set(idea.id, node); else cardRefs.current.delete(idea.id); }} className={`${styles.wheelCard} ${idea.kind === "coupon" ? styles.prize : ""}`}>
-      {idea.kind === "coupon" ? <div className={styles.prizeArt}><span>TWÓJ ZŁOTY KUPON</span><b>−10%</b><small>na animacje</small></div> : <Photo idea={idea} />}
+      {idea.kind === "coupon" ? <div className={styles.prizeArt}><span>TWÓJ ZŁOTY KUPON</span><b>−10%</b><small>na animacje</small></div> : <Photo idea={idea} loading="eager" />}
       <strong>{idea.title}</strong>
     </div>)}
     <span className={styles.wheelShadow} />
@@ -77,6 +103,8 @@ export default function MobileInspirationHero() {
   const [round, setRound] = useState(null);
   const [unavailable, setUnavailable] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [preparingPhotos, setPreparingPhotos] = useState(false);
+  const preparingPhotosRef = useRef(false);
   const busyRef = useRef(false);
   const aliveRef = useRef(false);
   const abortRef = useRef(null);
@@ -114,7 +142,7 @@ export default function MobileInspirationHero() {
   }, []);
 
   async function spin() {
-    if (busyRef.current) return;
+    if (busyRef.current || preparingPhotosRef.current) return;
     busyRef.current = true;
     setBusy(true); setMood("surprise"); setSelected(null); setRound(null);
     // Reuse an uncertain request on retry, so a lost response cannot cost another attempt.
@@ -142,11 +170,20 @@ export default function MobileInspirationHero() {
     setRound({ result, cards });
   }
 
-  function chooseMood(nextMood) {
-    if (busyRef.current) return;
+  async function chooseMood(nextMood) {
+    if (busyRef.current || preparingPhotosRef.current) return;
     const nextScene = mood === nextMood.id ? scene + 1 : 0;
+    const nextFront = ideaById(nextMood.ideas[nextScene % nextMood.ideas.length]);
+    const nextBack = ideaById(nextMood.ideas[(nextScene+1) % nextMood.ideas.length]);
+    preparingPhotosRef.current = true;
+    setPreparingPhotos(true);
+    // Keep the current photos visible until the replacement pair is downloaded and decoded.
+    await Promise.all([preparePhoto(nextFront), preparePhoto(nextBack)]);
+    preparingPhotosRef.current = false;
+    if (!aliveRef.current) return;
+    setPreparingPhotos(false);
     setMood(nextMood.id); setScene(nextScene);
-    setSelected(ideaById(nextMood.ideas[nextScene % nextMood.ideas.length]));
+    setSelected(nextFront);
   }
 
   const activeMood = moods.find(item => item.id === mood) || moods[0];
@@ -159,22 +196,22 @@ export default function MobileInspirationHero() {
     <h1>Tu zaczyna się<br /><em>wielkie WOOOW!</em></h1>
     <p className={styles.lead}>Animacje i atrakcje na małe i duże wydarzenia. Dla dzieci, dorosłych i całej Waszej ekipy.</p>
 
-    <div className={styles.stage}>
+    <div className={styles.stage} aria-busy={preparingPhotos}>
       <div className={styles.disc} aria-hidden="true" />
       <span className={styles.sparkOne} aria-hidden="true">✦</span><span className={styles.sparkTwo} aria-hidden="true">✧</span>
       {mood === "surprise" ? <Wheel round={round} canWin={draw?.remaining > 0 && !unavailable} onComplete={finish} reducedMotion={reducedMotion} /> :
-        <AnimatePresence mode="wait">
+        <AnimatePresence initial={false}>
           <motion.div className={styles.collage} key={`${mood}-${scene}`} initial={{ opacity: 0, y: reducedMotion ? 0 : 18, rotate: reducedMotion ? 0 : -4 }} animate={{ opacity: 1, y: 0, rotate: 0 }} exit={{ opacity: 0, y: reducedMotion ? 0 : -12 }} transition={{ duration: .24 }}>
-            <div className={styles.backPhoto}><Photo idea={back} loading="eager" /><strong>{back.title}</strong></div>
-            <div className={styles.frontPhoto}><Photo idea={front} loading="eager" /><strong>{front.title}</strong></div>
+            <div className={styles.backPhoto}><Photo idea={back} loading="eager" fetchPriority="high" /><strong>{back.title}</strong></div>
+            <div className={styles.frontPhoto}><Photo idea={front} loading="eager" fetchPriority="high" /><strong>{front.title}</strong></div>
             <span className={styles.sticker}>Ale będzie<br /><b>zabawa!</b></span>
           </motion.div>
         </AnimatePresence>}
     </div>
 
     <div className={styles.moods} aria-label="Odkryj inspiracje">
-      {moods.map(item => <button key={item.id} type="button" disabled={busy} aria-pressed={mood === item.id} onClick={() => chooseMood(item)}><span aria-hidden="true">{item.icon}</span>{item.label}</button>)}
-      <button type="button" className={styles.surprise} disabled={busy || (!draw && !unavailable)} aria-pressed={mood === "surprise"} onClick={spin}><span aria-hidden="true">✺</span>{busy ? "Losujemy…" : "Zaskocz mnie"}</button>
+      {moods.map(item => <button key={item.id} type="button" disabled={busy || preparingPhotos} aria-pressed={mood === item.id} onClick={() => chooseMood(item)}><span aria-hidden="true">{item.icon}</span>{item.label}</button>)}
+      <button type="button" className={styles.surprise} disabled={busy || preparingPhotos || (!draw && !unavailable)} aria-pressed={mood === "surprise"} onClick={spin}><span aria-hidden="true">✺</span>{busy ? "Losujemy…" : "Zaskocz mnie"}</button>
     </div>
 
     <div className={styles.result} aria-live="polite" aria-atomic="true">
@@ -185,7 +222,7 @@ export default function MobileInspirationHero() {
     <Link className={styles.cta} href={inspirationContactHref(selected?.id)} aria-disabled={busy} tabIndex={busy ? -1 : undefined} onClick={event => { if (busy) event.preventDefault(); }}>{selected ? "Zapytaj o ten pomysł" : "Zapytaj o termin i cenę"}<span aria-hidden="true">↗</span></Link>
     <p className={styles.reassurance}>Bez zobowiązań. Wspólnie dopasujemy atrakcje do Was.</p>
     <button type="button" className={styles.showIdeas} aria-expanded={expanded} aria-controls="inspiration-list" onClick={() => setExpanded(!expanded)}>{expanded ? "Zwiń pomysły" : `Zobacz ${inspirationIdeas.length} pomysłów w losowaniu`} <span aria-hidden="true">{expanded ? "−" : "+"}</span></button>
-    {expanded && <ul id="inspiration-list" className={styles.ideaList}>{inspirationIdeas.map(idea => <li key={idea.id}><Link href={inspirationContactHref(idea.id)}><Photo idea={idea} /><span>{idea.title}</span><span aria-hidden="true">↗</span></Link></li>)}</ul>}
+    {expanded && <ul id="inspiration-list" className={styles.ideaList}>{inspirationIdeas.map(idea => <li key={idea.id}><Link href={inspirationContactHref(idea.id)}><Photo idea={idea} sizes="62px" /><span>{idea.title}</span><span aria-hidden="true">↗</span></Link></li>)}</ul>}
     <p className={styles.more}>To dopiero początek. <Link href="/oferta">Poznaj całą ofertę <span aria-hidden="true">→</span></Link></p>
   </div>;
 }
