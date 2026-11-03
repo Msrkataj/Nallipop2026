@@ -1,9 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-
-const STORAGE_KEY = "nallipop_cookie_consent";
-export const CONSENT_VERSION = "2026-08-11.1";
+import { CONSENT_STORAGE_KEY, CONSENT_VERSION } from "@/lib/consent";
 
 const ConsentContext = createContext(null);
 
@@ -12,6 +10,7 @@ function createConsent(optional) {
     version: CONSENT_VERSION,
     necessary: true,
     analytics: Boolean(optional.analytics),
+    marketing: Boolean(optional.marketing),
     social: Boolean(optional.social),
     decidedAt: new Date().toISOString(),
     consentId:
@@ -20,12 +19,14 @@ function createConsent(optional) {
   };
 }
 
-function clearAnalyticsCookies() {
+function clearGoogleCookies({ analytics, marketing }) {
   if (typeof document === "undefined") return;
 
   document.cookie.split(";").forEach((cookie) => {
     const name = cookie.split("=")[0].trim();
-    if (name === "_ga" || name.startsWith("_ga_")) {
+    const isAnalyticsCookie = name === "_ga" || name.startsWith("_ga_");
+    const isMarketingCookie = name.startsWith("_gcl_");
+    if ((!analytics && isAnalyticsCookie) || (!marketing && isMarketingCookie)) {
       document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax`;
       document.cookie = `${name}=; Max-Age=0; path=/; domain=.${window.location.hostname}; SameSite=Lax`;
     }
@@ -39,30 +40,35 @@ export function ConsentProvider({ children }) {
 
   useEffect(() => {
     try {
-      const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
+      const saved = JSON.parse(window.localStorage.getItem(CONSENT_STORAGE_KEY));
       if (saved?.version === CONSENT_VERSION && saved?.necessary === true) {
         setConsent(saved);
       }
     } catch {
-      window.localStorage.removeItem(STORAGE_KEY);
+      window.localStorage.removeItem(CONSENT_STORAGE_KEY);
     } finally {
       setIsReady(true);
     }
   }, []);
 
   useEffect(() => {
-    if (!isReady || consent?.analytics) return;
+    if (!isReady) return;
 
     if (typeof window.gtag === "function") {
-      window.gtag("consent", "update", { analytics_storage: "denied" });
+      window.gtag("consent", "update", {
+        analytics_storage: consent?.analytics ? "granted" : "denied",
+        ad_storage: consent?.marketing ? "granted" : "denied",
+        ad_user_data: consent?.marketing ? "granted" : "denied",
+        ad_personalization: consent?.marketing ? "granted" : "denied",
+      });
     }
-    clearAnalyticsCookies();
-  }, [consent?.analytics, isReady]);
+    clearGoogleCookies({ analytics: consent?.analytics, marketing: consent?.marketing });
+  }, [consent?.analytics, consent?.marketing, isReady]);
 
   const saveConsent = useCallback((optional) => {
     const nextConsent = createConsent(optional);
     try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextConsent));
+      window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(nextConsent));
     } catch {
       // Ustawienie nadal działa w bieżącej sesji, nawet jeśli przeglądarka blokuje zapis lokalny.
     }
@@ -76,8 +82,8 @@ export function ConsentProvider({ children }) {
       consent,
       isReady,
       isSettingsOpen,
-      acceptAll: () => saveConsent({ analytics: true, social: true }),
-      rejectOptional: () => saveConsent({ analytics: false, social: false }),
+      acceptAll: () => saveConsent({ analytics: true, marketing: true, social: true }),
+      rejectOptional: () => saveConsent({ analytics: false, marketing: false, social: false }),
       savePreferences: saveConsent,
       openSettings: () => setIsSettingsOpen(true),
       closeSettings: () => setIsSettingsOpen(false),

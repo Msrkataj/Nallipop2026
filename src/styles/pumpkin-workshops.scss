@@ -1,0 +1,111 @@
+.pumpkin-page {
+  --pumpkin-ink: #3c3326;
+  --pumpkin-orange: #b44b23;
+  --pumpkin-muted: #756653;
+  color: var(--pumpkin-ink);
+  background: #fffaf1;
+  padding-bottom: 64px;
+
+  p { color: var(--pumpkin-muted); }
+  h2 { font-size: clamp(1.9rem, 3.3vw, 2.8rem); line-height: 1.2; letter-spacing: -0.045em; }
+  section[id] { scroll-margin-top: 120px; }
+  a:focus-visible, summary:focus-visible { outline: 3px solid var(--pumpkin-orange); outline-offset: 5px; }
+}
+
+.pumpkin-eyebrow { display: block; margin-bottom: 17px; color: var(--pumpkin-orange); font-size: 0.72rem; font-weight: 800; line-height: 1.6; letter-spacing: 0.13em; text-transform: uppercase; }
+.pumpkin-hero {
+  padding: 26px 0 72px;
+  background: radial-gradient(ellipse at 85% 50%, #f6dfb6, transparent 62%);
+
+  &__grid { display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: 56px; margin-top: 45px; }
+  h1 { font-size: clamp(2.7rem, 4.5vw, 4.15rem); line-height: 1.12; letter-spacing: -0.055em; }
+  h1 em { font-style: normal; color: var(--pumpkin-orange); }
+  &__lead { max-width: 530px; margin: 25px 0 30px; font-size: 1.02rem; }
+  &__lead strong { color: var(--pumpkin-ink); }
+  &__note { margin-top: 26px; font-size: 0.75rem; font-weight: 600; }
+  &__photo { position: relative; margin: 12px 0 0; padding: 12px; border-radius: 110px 22px 22px 22px; background: #fff; box-shadow: 0 22px 60px #7e56291c; transform: rotate(2deg); }
+  &__photo img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 100px 14px 14px 14px; }
+  figcaption { padding: 17px 8px 7px; text-align: center; font-size: 0.75rem; font-weight: 700; color: #756653; }
+  &__sticker { position: absolute; top: -25px; right: 18px; display: grid; place-content: center; width: 110px; height: 110px; border-radius: 50%; border: 5px solid #fffaf1; background: #e9c96b; color: #51431f; font-size: 0.95rem; font-weight: 900; line-height: 1.35; text-align: center; transform: rotate(9deg); }
+}
+
+.pumpkin-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; }
+.pumpkin-button { display: inline-flex; align-items: center; justify-content: center; gap: 15px; min-height: 52px; padding: 15px 24px; border-radius: 99px; background: var(--pumpkin-orange); color: white; text-align: center; font-weight: 800; font-size: 0.84rem; transition: background 0.2s; svg { width: 14px; flex-shrink: 0; } &:hover { background: #923b19; } }
+.pumpkin-text-link { display: inline-flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #cbbba1; font-size: 0.83rem; font-weight: 800; svg { width: 14px; } &:hover { color: var(--pumpkin-orange); } }
+.pumpkin-ribbon { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 18px 36px; padding: 23px 18px; background: #526143; color: #fffaf1; font-size: 0.8rem; font-weight: 700; [aria-hidden] { color: #e9c96b; } }
+.pumpkin-section { padding-top: 82px; padding-bottom: 82px; }
+.pumpkin-heading { max-width: 700px; margin: 0 auto 38px; text-align: center; p { margin-top: 18px; } }
+.pumpkin-activities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.pumpkin-activity {
+  padding: 30px; border: 1px solid #eadfcd; border-radius: 22px; background: white;
+  &__top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; color: var(--pumpkin-orange); svg { width: 27px; height: 27px; } span { font-size: 0.78rem; color: var(--pumpkin-muted); } }
+  h3 { margin-bottom: 15px; font-size: 1.22rem; letter-spacing: -0.035em; }
+  p { font-size: 0.87rem; }
+  &:nth-child(2) { background: #f6e8cd; }
+}
+
+.pumpkin-gallery {
+  padding: 70px 0; background: #f2ecdf;
+  &__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  figure { padding: 10px 10px 0; border-radius: 20px; background: #fffaf1; }
+  img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 13px; }
+  figcaption { padding: 19px 10px; text-align: center; font-size: 0.78rem; font-weight: 700; }
+}
+
+.pumpkin-plan {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 85px; align-items: center;
+  h2 { margin-bottom: 24px; }
+  ol { display: grid; gap: 28px; list-style: none; }
+  li { display: flex; gap: 20px; }
+  li > span { display: grid; place-items: center; flex: 0 0 42px; height: 42px; border: 1px solid #d9c6aa; border-radius: 50%; color: var(--pumpkin-orange); font-weight: 800; }
+  h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  li p { font-size: 0.85rem; }
+}
+
+.pumpkin-faq {
+  padding-bottom: 70px;
+  &__list { max-width: 850px; margin: auto; border-top: 1px solid #e1d5c1; }
+  details { padding: 22px 0; border-bottom: 1px solid #e1d5c1; }
+  summary { cursor: pointer; font-size: 0.95rem; font-weight: 800; padding-right: 12px; }
+  details p { margin-top: 15px; font-size: 0.88rem; max-width: 740px; }
+}
+
+.pumpkin-contact {
+  padding: 55px 30px; border-radius: 30px; text-align: center; background: #f3e3c5;
+  p { max-width: 570px; margin: 23px auto 28px; }
+  .pumpkin-actions { justify-content: center; }
+}
+
+@media (max-width: 1000px) {
+  .pumpkin-hero__grid { gap: 30px; }
+  .pumpkin-plan { gap: 40px; }
+  .pumpkin-activity { padding: 24px; }
+}
+
+@media (max-width: 800px) {
+  .pumpkin-hero { padding-bottom: 42px; &__grid { grid-template-columns: 1fr; gap: 30px; margin-top: 32px; } &__photo { max-width: 560px; width: calc(100% - 12px); margin: 12px auto 0; } &__photo img { aspect-ratio: 4 / 3; } }
+  .pumpkin-activities { grid-template-columns: 1fr; gap: 14px; }
+  .pumpkin-activity__top { margin-bottom: 18px; }
+  .pumpkin-plan { grid-template-columns: 1fr; gap: 32px; }
+  .pumpkin-section { padding-top: 55px; padding-bottom: 55px; }
+  .pumpkin-gallery { padding: 50px 0; &__grid { gap: 12px; } figcaption { font-size: 0.7rem; padding: 14px 3px; } }
+}
+
+@media (max-width: 600px) {
+  .pumpkin-hero h1 { font-size: clamp(2.5rem, 10vw, 3.5rem); }
+  .pumpkin-hero__lead { font-size: 0.96rem; }
+  .pumpkin-hero__sticker { width: 90px; height: 90px; font-size: 0.8rem; top: -18px; right: 12px; }
+  .pumpkin-hero figcaption { font-size: 0.7rem; }
+  .pumpkin-ribbon { gap: 12px; font-size: 0.68rem; }
+  .pumpkin-ribbon [aria-hidden] { display: none; }
+  .pumpkin-gallery__grid { grid-template-columns: 1fr; gap: 22px; }
+  .pumpkin-gallery img { aspect-ratio: 4 / 3; }
+  .pumpkin-gallery figcaption { font-size: 0.8rem; }
+  .pumpkin-contact { padding: 38px 20px; }
+  .pumpkin-faq { padding-bottom: 45px; }
+  .pumpkin-page { padding-bottom: 35px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pumpkin-button { transition: none; }
+}

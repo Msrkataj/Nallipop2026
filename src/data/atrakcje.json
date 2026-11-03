@@ -169,9 +169,36 @@
       "subcategories": [
         {
           "id": "efekty",
-          "title": "Bańki i pokazy",
-          "intro": "Widowiskowe atrakcje prowadzone przez animatora, które wywołują prawdziwy efekt WOW.",
+          "title": "Atrakcje z efektem WOW",
+          "intro": "Wielkie bańki, kolorowy glutek i widowiskowe dodatki, które urozmaicą Waszą imprezę.",
           "items": [
+            {
+              "title": "Fotobudka",
+              "text": "Wasz klimat, Wasz kadr. Fotobudka na wesela, komunie, Mikołajki, urodziny i inne wydarzenia. Pokazane scenografie to inspiracje — oprawę dopasujemy do Was.",
+              "image": "/images/fotobudka/lustro-urodziny.webp",
+              "href": "/fotobudka",
+              "linkLabel": "Wybierz scenografię"
+            },
+            {
+              "title": "Strefa malucha 0–3 lata",
+              "text": "Suchy basen, miękkie klocki, maty i mała zjeżdżalnia. Dodatkowa atrakcja dla najmłodszych gości, z opiekunem obok.",
+              "image": "/images/strefa-malucha/strefa.webp",
+              "href": "/strefa-malucha",
+              "linkLabel": "Poznaj Strefę malucha"
+            },
+            {
+              "title": "Pokaz ciekłego azotu",
+              "text": "Biała mgła, mroźne przemiany i naukowe WOW. Poznaj pokaz na urodziny, do szkoły lub na wydarzenie.",
+              "image": "/images/ciekly-azot/pokaz.webp",
+              "href": "/ciekly-azot",
+              "linkLabel": "Odkryj pokaz"
+            },
+            {
+              "title": "Glutek",
+              "text": "Mieszamy, ugniatamy i rozciągamy! Dzieci tworzą własny kolorowy glutek pod okiem animatora. Dodaj kreatywne warsztaty do swojego wydarzenia.",
+              "image": "/images/atrakcje/slime/warsztaty.webp",
+              "href": "/formularz-rezerwacji?atrakcja=Glutek#atrakcje-dodatkowe"
+            },
             {
               "title": "Bańki XXL",
               "text": "Ogromne bańki, bańkowe tunele i lekki spektakl.",
@@ -194,6 +221,13 @@
           "title": "Finały i pamiątki",
           "intro": "Kolorowe dodatki, które urozmaicają wydarzenie i zostawiają dzieciom piękne wspomnienia.",
           "items": [
+            {
+              "title": "Fotobudka",
+              "text": "Wasz klimat, Wasz kadr. Fotobudka na wesela, komunie, Mikołajki, urodziny i inne wydarzenia. Pokazane scenografie to inspiracje — oprawę dopasujemy do Was.",
+              "image": "/images/fotobudka/lustro-urodziny.webp",
+              "href": "/fotobudka",
+              "linkLabel": "Wybierz scenografię"
+            },
             {
               "title": "Piniata",
               "text": "Kolorowy finał imprezy i słodka niespodzianka.",
@@ -237,6 +271,13 @@
           "intro": "Twórcza zabawa i własnoręcznie wykonane pamiątki, które dzieci zabierają do domu.",
           "items": [
             {
+              "title": "Malowanie dyni",
+              "text": "Jesienne warsztaty pełne kolorów! Dzieci malują dynie, wymyślają własne wzory i rozwijają wyobraźnię przy wspólnym tworzeniu.",
+              "image": "/images/malowanie-dyni/hero.webp",
+              "href": "/malowanie-dyni",
+              "linkLabel": "Poznaj jesienne warsztaty"
+            },
+            {
               "title": "Malowanie twarzy",
               "text": "Delikatne wzory, bajkowe motywy i bezpieczne farby.",
               "image": "/images/atrakcje/warsztaty/malowanie_twarzy.webp"
@@ -257,9 +298,10 @@
               "image": "/images/atrakcje/warsztaty/sloiki.webp"
             },
             {
-              "title": "Warsztaty slime",
+              "title": "Warsztaty z masą sensoryczną",
               "text": "Kolorowa masa, mieszanie składników i dużo sensorycznej frajdy.",
-              "image": "/images/atrakcje/warsztaty/slime.webp"
+              "image": "/images/atrakcje/slime/mieszanie.webp",
+              "href": "/formularz-rezerwacji?atrakcja=Glutek#atrakcje-dodatkowe"
             },
             {
               "title": "Łapacze snów",
@@ -298,6 +340,13 @@
           "title": "Mały naukowiec",
           "intro": "Bezpieczne doświadczenia, efekt wow i pierwsze naukowe zachwyty.",
           "items": [
+            {
+              "title": "Pokaz ciekłego azotu",
+              "text": "Biała mgła, mroźne przemiany i naukowe WOW. Poznaj pokaz na urodziny, do szkoły lub na wydarzenie.",
+              "image": "/images/ciekly-azot/pokaz.webp",
+              "href": "/ciekly-azot",
+              "linkLabel": "Odkryj pokaz"
+            },
             {
               "title": "Eksperymenty",
               "text": "Mieszanie barw, bezpieczne reakcje i fascynujące zjawiska.",
@@ -400,6 +449,13 @@
           "intro": "Programy na Dzień Dziecka, Mikołajki, bale i wydarzenia rodzinne.",
           "items": [
             {
+              "title": "Malowanie dyni",
+              "text": "Zaproś jesień do swojej grupy. Kreatywne malowanie dyń to pomysł na warsztaty w przedszkolu, szkole lub na rodzinnym wydarzeniu.",
+              "image": "/images/malowanie-dyni/hero.webp",
+              "href": "/malowanie-dyni",
+              "linkLabel": "Poznaj jesienne warsztaty"
+            },
+            {
               "title": "Dzień Dziecka",
               "text": "Energetyczny pakiet atrakcji dla większych grup.",
               "image": "/images/atrakcje/atrakcje_sezonowe/dzien_dziecka.webp"
@@ -436,6 +492,13 @@
           "title": "Zabawy sensoryczne",
           "intro": "Spokojniejszy rytm, bezpieczne materiały i dużo odkrywania.",
           "items": [
+            {
+              "title": "Strefa malucha 0–3 lata",
+              "text": "Suchy basen, miękkie klocki, maty i mała zjeżdżalnia. Dodatkowa atrakcja dla najmłodszych gości, z opiekunem obok.",
+              "image": "/images/strefa-malucha/strefa.webp",
+              "href": "/strefa-malucha",
+              "linkLabel": "Poznaj Strefę malucha"
+            },
             {
               "title": "Kolorowe sortowanie",
               "text": "Proste zadania wspierające koncentrację.",

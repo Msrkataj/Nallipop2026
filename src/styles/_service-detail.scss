@@ -1,0 +1,58 @@
+.service-detail {
+  padding: clamp(20px, 3vw, 36px);
+  border: 1px solid #e6e4ef;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 20px 64px #30376e12;
+
+  &__header { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 28px; }
+  &__header .section-kicker { color: #087f7c; font-size: 0.7rem; }
+  &__header h2 { margin-top: 8px; font-size: clamp(1.7rem, 3vw, 2.5rem); }
+  &__header > a { flex-shrink: 0; color: #7054ba; font-size: 0.8rem; font-weight: 700; padding: 10px 0; }
+  &__layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); align-items: start; gap: clamp(26px, 4vw, 50px); }
+  &__photo { position: relative; display: block; width: 100%; aspect-ratio: 1; padding: 0; overflow: hidden; border: 1px solid #ece8f4; border-radius: 24px; background: #f6f3fa; cursor: zoom-in; }
+  &__photo img { object-fit: contain; }
+  &__photo > span { position: absolute; right: 12px; bottom: 12px; padding: 9px 12px; border-radius: 10px; color: #514668; background: #fffffff0; font-size: 0.72rem; font-weight: 650; }
+  blockquote { display: flex; gap: 14px; margin: 22px 0 0; padding: 18px 22px; border-radius: 18px; background: #f8f4fc; }
+  blockquote > span { color: #a27fd0; font-family: Georgia, serif; font-size: 3.5rem; line-height: 1; }
+  blockquote p { color: #766187; font-size: 0.83rem; line-height: 1.7; }
+  &__location { color: #74758b; font-size: 0.78rem; }
+  &__info h3 { margin: 12px 0 16px; font-size: clamp(1.35rem, 2.2vw, 1.9rem); line-height: 1.3; text-wrap: balance; }
+  &__info > p { color: #596078; font-size: 0.95rem; line-height: 1.75; }
+  &__benefits { display: grid; gap: 12px; margin: 22px 0 26px; list-style: none; }
+  &__benefits li { display: flex; align-items: center; gap: 10px; color: #42595b; font-size: 0.82rem; }
+  &__benefits span { display: grid; place-items: center; width: 23px; height: 23px; flex-shrink: 0; border-radius: 50%; background: #eaf7f3; color: #138779; font-weight: 800; }
+  &__booking { padding: 24px; border: 1px solid #d6eeeb; border-radius: 22px; background: #f0faf8; }
+  &__booking > div { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 12px; }
+  &__booking > div > span { color: #29716c; font-size: 0.73rem; font-weight: 750; text-transform: uppercase; letter-spacing: 0.06em; }
+  &__booking strong { color: #116b66; font-family: var(--font-poppins), sans-serif; font-size: 2.25rem; white-space: nowrap; }
+  &__booking strong small { font-size: 1rem; }
+  &__booking p { color: #526968; font-size: 0.82rem; line-height: 1.7; }
+  &__booking .button { width: 100%; margin-top: 18px; padding: 13px 18px; background: #097f7c; font-size: 0.88rem; box-shadow: 0 8px 20px #097f7c18; }
+  &__booking .button:hover { background: #086966; }
+  &__contact { display: block; width: fit-content; margin: 16px auto 0; color: #41615e; font-size: 0.8rem; text-align: center; text-decoration: underline; text-underline-offset: 4px; }
+  &__extras { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 30px; margin-top: 30px; padding: 26px; border-radius: 22px; background: linear-gradient(115deg, #faf2fc, #f2f6fe); }
+  &__extras .section-kicker { font-size: 0.65rem; color: #98608d; }
+  &__extras h3 { margin: 10px 0; font-size: 1.2rem; }
+  &__extras p { color: #74647d; font-size: 0.84rem; line-height: 1.6; }
+  &__extras ul { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; list-style: none; }
+  &__extras li { padding: 8px 12px; border: 1px solid #eee7f6; border-radius: 20px; color: #685284; background: #fff; font-size: 0.76rem; font-weight: 650; }
+  &__extras a { color: #7254a4; font-size: 0.82rem; font-weight: 700; }
+  &__more { margin-top: 24px; border-top: 1px solid #efecf4; }
+  &__more summary { padding: 20px 0 0; color: #685b7c; font-size: 0.83rem; cursor: pointer; }
+  &__more p { padding-top: 16px; color: #747084; font-size: 0.88rem; line-height: 1.8; }
+  :is(a, button, summary):focus-visible { outline: 3px solid #7356b5; outline-offset: 4px; }
+}
+
+@media (max-width: 800px) {
+  .service-detail {
+    &__layout, &__extras { grid-template-columns: 1fr; }
+    &__header { align-items: start; }
+    &__header > a { font-size: 0.7rem; }
+    &__header .section-kicker { font-size: 0.62rem; }
+    &__header h2 { font-size: 1.6rem; }
+    &__extras { gap: 20px; padding: 20px; }
+    &__booking { padding: 20px; }
+    &__booking strong { font-size: 1.9rem; }
+  }
+}

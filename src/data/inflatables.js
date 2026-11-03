@@ -1,10 +1,27 @@
+const standardRental = {
+  prices: [{ hours: 4, price: 500 }, { hours: 6, price: 700 }, { hours: 8, price: 800 }],
+  priceNote: "W cenie: przywiezienie, rozstawienie i demontaż oraz dojazd do 15 km.",
+  serviceTitle: "Przywozimy, rozstawiamy, odbieramy",
+  serviceCopy: "Zajmujemy się transportem, rozstawieniem i zakotwiczeniem dmuchańca. Po zakończeniu wynajmu przyjeżdżamy na demontaż i odbiór.",
+};
+
 export const inflatableItems = [
   {
+    ...standardRental,
     id: "safari",
     name: "Dmuchaniec Safari",
     description: "Wysoka zjeżdżalnia, strefa skakania i kolorowy motyw dżungli.",
     image: "/images/dmuchance/safari/main.webp",
     imagePosition: "center 54%",
+    features: ["Wysoka zjeżdżalnia", "Strefa skakania", "Motyw dżungli"],
+    galleryFolder: "dmuchaniec",
+    // This original is already represented by the optimized local main image.
+    galleryExcludeFiles: ["dmuchaniec/20260731_175109.jpg"],
+    dimensions: [
+      { label: "Długość", value: "6 m" },
+      { label: "Szerokość", value: "5 m" },
+      { label: "Wysokość", value: "6 m" },
+    ],
     badge: "Nowość · Dmuchaniec Safari",
     headline: "Tropikalna przygoda ze zjeżdżalnią i strefą skakania",
     copy: "Dmuchaniec Safari to duża, efektowna atrakcja na urodziny, festyny, pikniki i wydarzenia rodzinne. Łączy wysoką zjeżdżalnię ze strefą do swobodnego skakania, a kolorowy motyw dżungli natychmiast przyciąga uwagę dzieci.",
@@ -12,10 +29,17 @@ export const inflatableItems = [
     isNew: true,
   },
   {
+    ...standardRental,
     id: "tropic",
     name: "Dmuchaniec Tropic",
     description: "Podwójna tropikalna zjeżdżalnia zakończona dużym basenem.",
     image: "/images/dmuchance/tropic/main.webp",
+    features: ["Dwa tory zjazdowe", "Duży basen", "Tropikalny motyw"],
+    dimensions: [
+      { label: "Długość", value: "6 m" },
+      { label: "Szerokość", value: "4 m" },
+      { label: "Wysokość", value: "5 m" },
+    ],
     badge: "Dostępny · Dmuchaniec Tropic",
     headline: "Podwójna tropikalna zjeżdżalnia dla jeszcze większej zabawy",
     copy: "Dmuchaniec Tropic daje dzieciom dwa tory zjazdowe i dużą strefę zabawy w wakacyjnym klimacie. Świetnie sprawdza się podczas urodzin, festynów i plenerowych wydarzeń z większą liczbą uczestników.",
@@ -26,6 +50,18 @@ export const inflatableItems = [
     name: "Bubble House",
     description: "Przezroczysta kopuła z kolorowymi balonami — wyjątkowa atrakcja i piękna strefa zdjęć.",
     image: "/images/dmuchance/bubble_house/main.webp",
+    features: ["Przezroczysta kopuła", "Kolorowe balony", "Strefa zdjęć"],
+    galleryFolder: "dmuchaniec/bubble",
+    prices: [{ hours: 2, price: 500 }, { hours: 3, price: 700 }, { hours: 4, price: 850 }],
+    priceNote: "Pełna obsługa Bubble House przez cały czas wynajmu w cenie.",
+    serviceTitle: "Bubble House z pełną obsługą",
+    serviceCopy: "Jesteśmy na miejscu przez cały czas zabawy. Pomagamy dzieciom sprawnie i wygodnie wchodzić oraz wychodzić przez tunel. Dbamy o prawidłowe zamykanie wejścia, aby ograniczyć utratę powietrza i utrzymać kopułę w odpowiednim kształcie.",
+    dimensions: [
+      { label: "Długość z tunelem", value: "6 m" },
+      { label: "Szerokość", value: "4,5 m" },
+      { label: "Wysokość", value: "3 m" },
+      { label: "Średnica kuli", value: "4 m" },
+    ],
     badge: "Dostępny · Bubble House",
     headline: "Magiczny Bubble House pełen kolorowych balonów",
     copy: "Bubble House to efektowna, przezroczysta kopuła, w której wirują kolorowe balony. Tworzy wyjątkową przestrzeń do zabawy i zdjęć, dlatego pięknie uzupełnia urodziny, wesela, eventy oraz rodzinne przyjęcia.",

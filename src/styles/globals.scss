@@ -3,6 +3,7 @@
 @use "./cookie-consent.scss";
 @use "./legal.scss";
 @use "./offer-footer.scss";
+@use "./not-found.scss";
 
 :root {
   --ink: #131a3f;
@@ -42,6 +43,94 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.offer-breadcrumb,
+.legal-breadcrumbs {
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 5px;
+  border: 1px solid rgba(93, 82, 166, 0.13);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #6f7692;
+  box-shadow: 0 12px 34px rgba(46, 53, 101, 0.08);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1;
+
+  > a,
+  > span:not([aria-hidden="true"]) {
+    min-height: 30px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 999px;
+  }
+
+  > a {
+    color: #6550bd;
+    transition: color 0.2s ease, background 0.2s ease;
+
+    &:first-child {
+      background: linear-gradient(135deg, rgba(166, 129, 255, 0.13), rgba(22, 201, 195, 0.11));
+    }
+
+    &:hover {
+      background: rgba(22, 201, 195, 0.1);
+      color: #078e89;
+    }
+  }
+
+  > span:not([aria-hidden="true"]) {
+    color: #303858;
+  }
+
+  > span[aria-hidden="true"] {
+    width: 19px;
+    height: 30px;
+    display: grid;
+    flex: 0 0 19px;
+    place-items: center;
+    overflow: hidden;
+    color: transparent;
+    font-size: 0;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-top: 1.5px solid rgba(91, 98, 133, 0.48);
+      border-right: 1.5px solid rgba(91, 98, 133, 0.48);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .offer-breadcrumb,
+  .legal-breadcrumbs {
+    padding: 4px;
+    font-size: 0.7rem;
+
+    > a,
+    > span:not([aria-hidden="true"]) {
+      min-height: 28px;
+      padding-inline: 8px;
+    }
+
+    > span[aria-hidden="true"] {
+      width: 14px;
+      height: 28px;
+      flex-basis: 14px;
+    }
+  }
 }
 
 button,

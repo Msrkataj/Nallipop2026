@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { validateEventDetails } from "@/lib/reservation-validation";
+import { formatSeasonalPackage } from "@/data/seasonal-packages";
 
 const requiredFields = [
   "name",
@@ -24,8 +26,9 @@ const labels = {
   eventType: "Rodzaj imprezy",
   childrenCount: "Liczba dzieci",
   childrenAge: "Wiek dzieci",
-  location: "Miejsce imprezy",
+  location: "Adres imprezy",
   paidAttractions: "Dodatkowo platne atrakcje",
+  seasonalPackage: "Pakiet sezonowy",
   notes: "Uwagi",
 };
 
@@ -46,6 +49,7 @@ function normalizeFormData(data) {
     childrenAge: cleanValue(data.childrenAge),
     location: cleanValue(data.location),
     paidAttractions: Array.isArray(data.paidAttractions) ? data.paidAttractions.map(cleanValue).filter(Boolean) : [],
+    seasonalPackage: cleanValue(data.seasonalPackage) || "",
     notes: cleanValue(data.notes) || "Brak uwag",
     legalAccepted: data.consent === true || data.legalAccepted === true,
   };
@@ -65,6 +69,9 @@ function validate(data) {
     return "Potwierdź zapoznanie się z Regulaminem i Polityką prywatności.";
   }
 
+  const eventError = validateEventDetails(data);
+  if (eventError) return eventError;
+
   return null;
 }
 
@@ -82,6 +89,7 @@ function formatTextEmail(data) {
     `${labels.childrenCount}: ${data.childrenCount}`,
     `${labels.childrenAge}: ${data.childrenAge}`,
     `${labels.location}: ${data.location}`,
+    `${labels.seasonalPackage}: ${formatSeasonalPackage(data.seasonalPackage)}`,
     `${labels.paidAttractions}: ${data.paidAttractions.length ? data.paidAttractions.join(", ") : "Brak"}`,
     `${labels.notes}: ${data.notes}`,
     `Potwierdzenie Regulaminu i Polityki prywatności: Tak (${data.legalAcceptedAt})`,
@@ -100,6 +108,7 @@ function formatHtmlEmail(data) {
     [labels.childrenCount]: data.childrenCount,
     [labels.childrenAge]: data.childrenAge,
     [labels.location]: data.location,
+    [labels.seasonalPackage]: formatSeasonalPackage(data.seasonalPackage),
     [labels.paidAttractions]: data.paidAttractions.length ? data.paidAttractions.join(", ") : "Brak",
     [labels.notes]: data.notes,
     ["Potwierdzenie Regulaminu i Polityki prywatności"]: `Tak (${data.legalAcceptedAt})`,

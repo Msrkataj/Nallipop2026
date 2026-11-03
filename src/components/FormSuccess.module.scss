@@ -1,0 +1,78 @@
+.confirmation {
+  padding: clamp(32px, 5vw, 64px) 20px;
+  scroll-margin-top: 120px;
+  text-align: center;
+  color: #27304f;
+  border-radius: 24px;
+  background: linear-gradient(150deg, #e8fbf9, #f4f0ff 70%, #fff5fa);
+
+  &:focus-visible {
+    outline: 3px solid #687dde;
+    outline-offset: -3px;
+  }
+}
+
+.checkmark {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  color: #fff;
+  background: #16877e;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.confirmation .eyebrow {
+  margin: 0 0 12px;
+  color: #216f68;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.confirmation .title {
+  margin: 0 0 18px;
+  font-family: inherit;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+
+  &::after { display: none; }
+}
+
+.confirmation .description {
+  max-width: 540px;
+  margin: 0 auto;
+  color: #505a76;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.confirmation .note {
+  margin: 16px 0 0;
+  color: #505a76;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.homeLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding: 15px 22px;
+  border-radius: 16px;
+  color: #fff;
+  background: #6553b8;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+
+  &:hover { background: #53439d; }
+  &:focus-visible { outline: 3px solid #27304f; outline-offset: 4px; }
+}

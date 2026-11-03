@@ -3,7 +3,7 @@ import { LegalDocument, LegalList, LegalSection, LegalTable } from "@/components
 
 export const metadata = createPageMetadata({
   title: "Polityka prywatności i cookies",
-  description: "Informacje o przetwarzaniu danych na nallipop.pl, formularzach, Google Analytics i treściach z Facebooka.",
+  description: "Informacje o przetwarzaniu danych na nallipop.pl, formularzach, Google Analytics, Google Ads i treściach z Facebooka.",
   path: "/polityka-prywatnosci",
 });
 
@@ -22,6 +22,7 @@ export default function PolitykaPrywatnosciPage() {
     ["Ustalenie, dochodzenie i obrona roszczeń", "Dane związane ze zleceniem i korespondencją; art. 6 ust. 1 lit. f RODO", "Do przedawnienia roszczeń lub prawomocnego zakończenia sprawy", "Nie jest odrębnym warunkiem usługi"],
     ["Bezpieczeństwo strony i logi", "IP, logi, dane techniczne; art. 6 ust. 1 lit. f RODO", "Przez okres wynikający z konfiguracji usług, nie dłużej niż jest to potrzebne; dłużej tylko w razie incydentu lub obowiązku prawnego", "Powstają automatycznie podczas korzystania ze strony"],
     ["Analityka strony", "Identyfikatory i zdarzenia Google Analytics; art. 6 ust. 1 lit. a RODO i zgoda na opcjonalne technologie", "Do wycofania zgody lub upływu okresu ustawionego w narzędziu, nie dłużej niż jest to potrzebne do analizy", "Dobrowolne; odmowa nie ogranicza podstawowych funkcji"],
+    ["Pomiar kampanii reklamowych", "Identyfikatory i zdarzenia Google Ads; art. 6 ust. 1 lit. a RODO i zgoda na technologie reklamowe", "Do wycofania zgody lub upływu okresu ustawionego w narzędziu, nie dłużej niż jest to potrzebne do pomiaru kampanii", "Dobrowolne; odmowa nie ogranicza podstawowych funkcji"],
     ["Wizerunek w celach promocyjnych", "Zdjęcia/filmy; art. 6 ust. 1 lit. a RODO oraz zezwolenie na rozpowszechnianie wizerunku", "Przez okres wskazany w zgodzie lub do jej wcześniejszego wycofania", "Całkowicie dobrowolne; brak zgody nie wpływa na usługę"],
   ];
 
@@ -34,7 +35,7 @@ export default function PolitykaPrywatnosciPage() {
       toc={toc}
     >
       <LegalSection id="w-skrocie" title="W skrócie" highlight>
-        <p><strong>Dane z formularza służą do odpowiedzi na zapytanie. Google Analytics i osadzony feed Facebooka mogą uruchamiać się dopiero po dobrowolnej zgodzie na opcjonalne technologie.</strong></p>
+        <p><strong>Dane z formularza służą do odpowiedzi na zapytanie. Google działa domyślnie w ograniczonym trybie zgody bez opcjonalnych cookies; pełna analityka i pomiar Google Ads uruchamiają się dopiero po dobrowolnej zgodzie. Feed Facebooka pozostaje zablokowany do czasu zgody.</strong></p>
       </LegalSection>
 
       <LegalSection id="administrator" title="1. Administrator danych">
@@ -60,7 +61,7 @@ export default function PolitykaPrywatnosciPage() {
 
       <LegalSection id="odbiorcy" title="4. Odbiorcy danych">
         <LegalList>
-          <li>Dane mogą być przekazywane wyłącznie w zakresie niezbędnym: osobom upoważnionym współpracującym przy realizacji Usług, dostawcom hostingu i utrzymania IT, Google w związku z Google Cloud Run, Google Workspace, kalendarzem i – po zgodzie – Google Analytics, dostawcom poczty, bankom i operatorom płatności, księgowości, doradcom prawnym oraz organom publicznym, gdy wymagają tego przepisy.</li>
+          <li>Dane mogą być przekazywane wyłącznie w zakresie niezbędnym: osobom upoważnionym współpracującym przy realizacji Usług, dostawcom hostingu i utrzymania IT, Google w związku z Google Cloud Run, Google Workspace, kalendarzem i – po odpowiedniej zgodzie – Google Analytics oraz Google Ads, dostawcom poczty, bankom i operatorom płatności, księgowości, doradcom prawnym oraz organom publicznym, gdy wymagają tego przepisy.</li>
           <li>Po wyrażeniu zgody na osadzone treści społecznościowe dane techniczne mogą być przekazywane Meta Platforms Ireland Limited i podmiotom z grupy Meta zgodnie z ich zasadami prywatności. Samo odwiedzenie profilu Nallipop na Facebooku lub Instagramie podlega także zasadom tych serwisów.</li>
           <li>Podmioty przetwarzające działają na podstawie umów i poleceń Administratora, o ile przepisy nie nadają im roli niezależnego administratora.</li>
         </LegalList>
@@ -94,7 +95,8 @@ export default function PolitykaPrywatnosciPage() {
       <LegalSection id="cookies" title="8. Cookies i podobne technologie">
         <LegalList>
           <li>Strona może korzystać z cookies lub podobnych technologii zapisywanych na urządzeniu albo uzyskiwać dostęp do informacji już zapisanych. Technologie niezbędne mogą działać bez zgody, gdy są konieczne do transmisji komunikatu lub dostarczenia usługi wyraźnie żądanej przez użytkownika.</li>
-          <li>Technologie analityczne Google Analytics i technologie związane z osadzonym feedem Facebooka są opcjonalne. Nie powinny być uruchamiane ani pobierać danych przed zgodą użytkownika.</li>
+          <li>Tag Google korzysta z Consent Mode. Przed wyborem użytkownika wszystkie opcjonalne rodzaje przechowywania danych są ustawione jako „denied”: tag nie zapisuje opcjonalnych cookies, ale może wysyłać do Google ograniczone sygnały pomiarowe bez identyfikatorów cookies. Pełna analityka Google Analytics i pomiar Google Ads działają dopiero po zgodzie na odpowiednią kategorię.</li>
+          <li>Technologie związane z osadzonym feedem Facebooka pozostają zablokowane do czasu zgody użytkownika na treści społecznościowe.</li>
           <li>Baner udostępnia na pierwszej warstwie równorzędne opcje: „Akceptuję wszystkie”, „Odrzucam opcjonalne” i „Ustawienia”. Brak działania, przewijanie strony ani domyślnie zaznaczone pola nie stanowią zgody.</li>
           <li>Użytkownik może w każdej chwili zmienić wybór przez stale dostępny przycisk „Ustawienia cookies” w stopce. Wycofanie zgody jest równie łatwe jak jej udzielenie.</li>
         </LegalList>
@@ -106,6 +108,7 @@ export default function PolitykaPrywatnosciPage() {
           rows={[
             ["Niezbędne", "Bezpieczeństwo, transmisja, zapamiętanie wyboru cookies i obsługa żądanych funkcji", "Niezbędność techniczna / prawnie uzasadniony interes w bezpieczeństwie", "Zawsze aktywne, tylko w niezbędnym zakresie"],
             ["Analityczne", "Pomiar ruchu i sposobu korzystania ze strony za pomocą Google Analytics", "Dobrowolna zgoda", "Wyłączone do czasu zgody"],
+            ["Reklamowe", "Pomiar skuteczności kampanii za pomocą Google Ads", "Dobrowolna zgoda", "Wyłączone do czasu zgody"],
             ["Treści społecznościowe", "Wyświetlenie osadzonego feedu Facebooka i interakcja z treścią Meta", "Dobrowolna zgoda", "Wyłączone do czasu zgody"],
           ]}
         />

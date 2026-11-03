@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "admin:setup": "node scripts/admin-setup.mjs",
+    "admin:test": "node --test tests/admin-security.test.mjs",
+    "newsletter:preview": "node scripts/newsletter.mjs",
+    "newsletter:test": "node scripts/newsletter.mjs --send-test",
+    "newsletter:check": "node --test scripts/newsletter.test.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
@@ -16,17 +21,18 @@
     "firebase": "^12.14.0",
     "framer-motion": "^12.40.0",
     "mongodb": "^7.5.0",
-    "next": "16.1.6",
+    "next": "^16.3.8",
     "nodemailer": "^9.0.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "sass": "^1.98.0"
+    "sass": "^1.98.0",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
-    "eslint-config-next": "16.1.6",
+    "eslint-config-next": "^16.3.8",
     "tailwindcss": "^4"
   }
 }

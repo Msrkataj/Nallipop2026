@@ -14,6 +14,7 @@ export default function LegalFooter() {
           <Link href="/regulamin">Regulamin</Link>
           <Link href="/polityka-prywatnosci">Polityka prywatności i cookies</Link>
           <Link href="/zgody-i-wizerunek">Klauzule i zgoda na wizerunek</Link>
+          <Link href="/blog">Blog</Link>
           <Link href="/sitemap.xml">Mapa strony</Link>
           <button type="button" onClick={openSettings}>Ustawienia cookies</button>
         </nav>

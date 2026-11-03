@@ -1,9 +1,16 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import PageDecorations from "@/components/PageDecorations";
+import AttractionPicker from "@/components/AttractionPicker";
+import AutumnPackageBanner from "@/components/AutumnPackageBanner";
+import FormSuccess from "@/components/FormSuccess";
+import { paidAttractions } from "@/data/reservation-attractions";
+import { getSeasonalPackage } from "@/data/seasonal-packages";
+import { photoboothScenes, photoboothPricing } from "@/data/photobooth";
+import { reportContactFormConversion } from "@/lib/google-ads";
+import { getWarsawDate, validateEventDetails } from "@/lib/reservation-validation";
 
 const initialForm = {
   name: "",
@@ -17,6 +24,7 @@ const initialForm = {
   childrenAge: "",
   location: "",
   paidAttractions: [],
+  seasonalPackage: "",
   notes: "",
   consent: false,
 };
@@ -24,57 +32,82 @@ const initialForm = {
 const hoursOptions = ["2 godziny", "3 godziny", "4 godziny", "5 godzin lub więcej"];
 const eventTypes = [
   "Urodziny",
-  "Wesele / chrzciny / komunia",
+  "Wesele",
+  "Chrzciny",
+  "Komunia",
   "Festyn lub piknik",
   "Impreza szkolna / przedszkolna",
   "Event firmowy",
   "Inne",
 ];
-const paidAttractions = [
-  { name: "Malowanie twarzy", icon: "malowanie-twarzy.webp", background: "#e4fbf7", accent: "#0daea6" },
-  { name: "Tatuaże brokatowe", icon: "tatuaze-brokatowe.webp", background: "#fff0f8", accent: "#dd4d9b" },
-  { name: "Modelowanie balonów", icon: "modelowanie-balonow.webp", background: "#eef0ff", accent: "#6d6fdb" },
-  { name: "Bańki XXL", icon: "banki-xxl.webp", background: "#e9f6ff", accent: "#397fd1" },
-  { name: "Zamykanie w bańce", icon: "zamykanie-w-bance.webp", background: "#eaf9ef", accent: "#329768" },
-  { name: "Warsztaty slime", icon: "warsztaty-slime.webp", background: "#f2fbe5", accent: "#78a82f" },
-  { name: "Eksperymenty", icon: "eksperymenty.webp", background: "#fff7d9", accent: "#d69308" },
-  { name: "Eksperymenty z suchym lodem", icon: "eksperymenty.webp", background: "#eef6ff", accent: "#477fc4" },
-  { name: "Malowanie toreb", icon: "malowanie-toreb.webp", background: "#fff0e8", accent: "#d9683d" },
-  { name: "Kompozycja w słoiku", icon: "malowanie-toreb.webp", background: "#eff9e8", accent: "#5f963c" },
-  { name: "Łapacze snów", icon: "malowanie-toreb.webp", background: "#f5efff", accent: "#835ac1" },
-  { name: "Gniotki", icon: "warsztaty-slime.webp", background: "#fff4df", accent: "#c27c22" },
-  { name: "Breloczki", icon: "malowanie-toreb.webp", background: "#eaf8fb", accent: "#278ca0" },
-  { name: "Magnesy", icon: "malowanie-toreb.webp", background: "#fff1f3", accent: "#c54f67" },
-  { name: "Ramki", icon: "malowanie-toreb.webp", background: "#f3f4ff", accent: "#696dc3" },
-  { name: "Lusterka", icon: "malowanie-toreb.webp", background: "#edf9f5", accent: "#368b70" },
-  { name: "Piniata", icon: "piniata.webp", background: "#f7eefe", accent: "#a34fc7" },
-  { name: "Dmuchaniec", icon: "dmuchaniec.webp", background: "#e7faff", accent: "#1597ad" },
-];
+
+
+function subscribeToDate(onChange) {
+  const timer = window.setInterval(onChange, 60000);
+  window.addEventListener("focus", onChange);
+  return () => {
+    window.clearInterval(timer);
+    window.removeEventListener("focus", onChange);
+  };
+}
+const serverDate = () => "";
 
 export default function FormularzRezerwacjiPage() {
+  const today = useSyncExternalStore(subscribeToDate, getWarsawDate, serverDate);
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const availableHours = form.paidAttractions.includes("Fotobudka") ? ["1 godzina", ...hoursOptions] : hoursOptions;
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const selectedAttraction = searchParams.get("atrakcja");
     const selectedModel = searchParams.get("model");
+    const selectedOffer = searchParams.get("oferta");
+    const selectedPackage = getSeasonalPackage(searchParams.get("pakiet"));
+    if (selectedOffer) {
+      const occasion = { urodziny: "Urodziny", wesela: "Wesele", komunie: "Komunia", mikolajki: "Inne", impreza: "Inne", festyny: "Festyn lub piknik", warsztaty: "Impreza szkolna / przedszkolna", eventy: "Event firmowy", polkolonie: "Inne" }[selectedOffer];
+      if (occasion) setForm((current) => ({ ...current, eventType: occasion }));
+
+      const holidayService = {
+        "malowanie-dyni": "Jesienne warsztaty malowania dyni",
+        "warsztaty-z-elfem": "Warsztaty z Elfem",
+        "wizyta-mikolaja": "Wizyta Mikołaja",
+      }[selectedOffer];
+      if (holidayService) setForm((current) => ({ ...current, notes: current.notes || `Interesuje mnie: ${holidayService}.` }));
+    }
+
+    if (selectedPackage) {
+      setForm((current) => ({ ...current, seasonalPackage: selectedPackage.id, hours: current.hours || "2 godziny" }));
+    }
 
     if (selectedAttraction) {
       const matchedAttraction = paidAttractions.find(
-        (item) => item.name.toLowerCase() === selectedAttraction.toLowerCase()
+        (item) => [item.name, item.displayName, ...(item.aliases || [])].some((name) => name?.toLowerCase() === selectedAttraction.toLowerCase())
       );
       const paidAttractionName = matchedAttraction?.name || "Dmuchaniec";
-      const detail = selectedModel || selectedAttraction;
-      const notePrefix = paidAttractionName === "Piniata" ? "Wybrany wzór piniaty" : "Wybrany model";
+      const detail = selectedModel || matchedAttraction?.displayName || matchedAttraction?.name || selectedAttraction;
+      const notePrefix = paidAttractionName === "Piniata" ? "Wybrany wzór piniaty" : matchedAttraction && !selectedModel ? "Wybrana atrakcja" : "Wybrany model";
+      const photoScene = paidAttractionName === "Fotobudka"
+        ? photoboothScenes.find((scene) => scene.id === searchParams.get("scenografia"))
+        : null;
+      const attractionNote = photoScene
+        ? `Wybrana atrakcja: Fotobudka. Scenografia: ${photoScene.label} — ${photoScene.tags.join(", ")}.`
+        : `${notePrefix}: ${detail}`;
+      const photoPackage = paidAttractionName === "Fotobudka"
+        ? photoboothPricing.packages.find((item) => String(item.hours) === searchParams.get("czas-fotobudki"))
+        : null;
+      const packageNote = photoPackage
+        ? ` Czas działania fotobudki: ${photoPackage.label}. Cena: ${photoPackage.price} zł brutto. ${photoboothPricing.transportNote}`
+        : "";
 
       setForm((current) => ({
         ...current,
         paidAttractions: current.paidAttractions.includes(paidAttractionName)
           ? current.paidAttractions
           : [...current.paidAttractions, paidAttractionName],
-        notes: current.notes || `${notePrefix}: ${detail}`,
+        hours: current.hours || photoPackage?.label || "",
+        notes: current.notes || `${attractionNote}${packageNote}`,
       }));
     }
   }, []);
@@ -92,12 +125,20 @@ export default function FormularzRezerwacjiPage() {
         paidAttractions: selected
           ? current.paidAttractions.filter((item) => item !== value)
           : [...current.paidAttractions, value],
+        hours: selected && value === "Fotobudka" && current.hours === "1 godzina" ? "" : current.hours,
       };
     });
   }
 
   async function submitForm(event) {
     event.preventDefault();
+    if (status === "sending" || status === "success") return;
+    const validationError = validateEventDetails(form);
+    if (validationError) {
+      setStatus("error");
+      setMessage(validationError);
+      return;
+    }
     setStatus("sending");
     setMessage("");
 
@@ -114,8 +155,8 @@ export default function FormularzRezerwacjiPage() {
       }
 
       setForm(initialForm);
+      reportContactFormConversion();
       setStatus("success");
-      setMessage("Dziękujemy! Wrócimy do Ciebie z propozycją.");
     } catch (error) {
       setStatus("error");
       setMessage(error.message);
@@ -145,7 +186,12 @@ export default function FormularzRezerwacjiPage() {
         </div>
       </section>
 
-      <form id="formularz" className="form-card" onSubmit={submitForm}>
+      {status === "success" ? (
+        <div id="formularz" className="form-card">
+          <FormSuccess reservation />
+        </div>
+      ) : (
+      <form id="formularz" className="form-card" onSubmit={submitForm} aria-busy={status === "sending"}>
         <section className="form-section">
           <div className="section-heading">
             <span className="section-icon">01</span>
@@ -181,7 +227,7 @@ export default function FormularzRezerwacjiPage() {
           <div className="form-grid three-columns">
             <label className="field">
               <span>Data imprezy *</span>
-              <input required type="date" name="eventDate" value={form.eventDate} onChange={updateField} />
+              <input required type="date" min={today} name="eventDate" value={form.eventDate} onChange={updateField} />
             </label>
             <label className="field">
               <span>Godzina rozpoczęcia *</span>
@@ -191,7 +237,7 @@ export default function FormularzRezerwacjiPage() {
               <span>Liczba godzin *</span>
               <select required name="hours" value={form.hours} onChange={updateField}>
                 <option value="" disabled>Wybierz</option>
-                {hoursOptions.map((option) => <option key={option}>{option}</option>)}
+                {availableHours.map((option) => <option key={option}>{option}</option>)}
               </select>
             </label>
             <label className="field field-wide">
@@ -210,13 +256,18 @@ export default function FormularzRezerwacjiPage() {
               <input required placeholder="np. 5–7 lat" name="childrenAge" value={form.childrenAge} onChange={updateField} />
             </label>
             <label className="field field-wide">
-              <span>Miejsce imprezy *</span>
-              <input required placeholder="Nazwa lokalu lub dokładny adres" name="location" value={form.location} onChange={updateField} />
+              <span>Adres imprezy *</span>
+              <input required autoComplete="street-address" placeholder="np. ul. Słoneczna 12, Pruszków" name="location" value={form.location} onChange={updateField} />
             </label>
           </div>
         </section>
 
-        <section className="form-section">
+        <AutumnPackageBanner
+          selectedPackage={form.seasonalPackage}
+          onChange={(id) => setForm((current) => ({ ...current, seasonalPackage: id, hours: id ? current.hours || "2 godziny" : current.hours }))}
+        />
+
+        <section className="form-section" id="atrakcje-dodatkowe" style={{ scrollMarginTop: "120px" }}>
           <div className="section-heading">
             <span className="section-icon pink">03</span>
             <div>
@@ -224,36 +275,7 @@ export default function FormularzRezerwacjiPage() {
               <p>Zaznacz dowolną liczbę. Szczegóły i cenę potwierdzimy w ofercie.</p>
             </div>
           </div>
-          <div className="attractions">
-            {paidAttractions.map((attraction) => (
-              <label
-                className="attraction"
-                key={attraction.name}
-                style={{
-                  "--attraction-background": attraction.background,
-                  "--attraction-accent": attraction.accent,
-                }}
-              >
-                <input
-                  type="checkbox"
-                  name="paidAttractions"
-                  value={attraction.name}
-                  checked={form.paidAttractions.includes(attraction.name)}
-                  onChange={() => toggleAttraction(attraction.name)}
-                />
-                <span className="check" aria-hidden="true">✓</span>
-                <span className="mini-icon" aria-hidden="true">
-                  <Image
-                    src={`/images/nallipop-ikony-atrakcje-profesjonalne/${attraction.icon}`}
-                    alt=""
-                    width={48}
-                    height={48}
-                  />
-                </span>
-                <span className="attraction__name">{attraction.name}</span>
-              </label>
-            ))}
-          </div>
+          <AttractionPicker selected={form.paidAttractions} onToggle={toggleAttraction} />
         </section>
 
         <section className="form-section last-section">
@@ -284,14 +306,15 @@ export default function FormularzRezerwacjiPage() {
             <span aria-hidden="true">→</span>
           </button>
           <p className="form-note">Administratorem danych jest KamaLogic Kamil Tosnowiec, ul. Nadrzeczna 7, 05-840 Krosna-Parcela, NIP 5342671266. Dane wykorzystamy, aby odpowiedzieć na zapytanie i przygotować ofertę. Podanie danych kontaktowych jest dobrowolne, ale konieczne do udzielenia odpowiedzi. Szczegóły dotyczące odbiorców, okresów przechowywania i praw znajdują się w <Link href="/polityka-prywatnosci">Polityce prywatności</Link>. Kontakt: animacje@nallipop.pl.</p>
-          {message && (
-            <p className={`success ${status === "error" ? "error" : ""}`} role="status">
-              <b>{status === "success" ? "Formularz wysłany" : "Nie udało się wysłać"}</b>
+          {status === "error" && message && (
+            <p className="success error" role="alert">
+              <b>Nie udało się wysłać</b>
               {message}
             </p>
           )}
         </section>
       </form>
+      )}
 
       <footer><span>Nallipop</span> · animacje z uśmiechem ♡</footer>
     </main>

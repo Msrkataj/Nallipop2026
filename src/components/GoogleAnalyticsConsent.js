@@ -1,27 +1,21 @@
 "use client";
 
-import Script from "next/script";
+import { useEffect } from "react";
 import { useConsent } from "@/components/ConsentProvider";
 
 export default function GoogleAnalyticsConsent() {
-  const { consent } = useConsent();
-  const measurementId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID || "G-NN5Q100TDG";
+  const { consent, isReady } = useConsent();
 
-  if (!measurementId || !consent?.analytics) return null;
+  useEffect(() => {
+    if (!isReady || typeof window.gtag !== "function") return;
 
-  return (
-    <>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`} strategy="afterInteractive" />
-      <Script id="nallipop-google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          window.gtag = gtag;
-          gtag('consent', 'default', { analytics_storage: 'granted' });
-          gtag('js', new Date());
-          gtag('config', '${measurementId}', { anonymize_ip: true });
-        `}
-      </Script>
-    </>
-  );
+    window.gtag("consent", "update", {
+      analytics_storage: consent?.analytics ? "granted" : "denied",
+      ad_storage: consent?.marketing ? "granted" : "denied",
+      ad_user_data: consent?.marketing ? "granted" : "denied",
+      ad_personalization: consent?.marketing ? "granted" : "denied",
+    });
+  }, [consent?.analytics, consent?.marketing, isReady]);
+
+  return null;
 }

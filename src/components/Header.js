@@ -24,19 +24,21 @@ export default function Header() {
                     aria-label="Główna nawigacja"
                 >
                     <Link href="/oferta" onClick={closeMenu}>Oferta</Link>
-                    <Link href="/oferta?oferta=dmuchance#wybor-dmuchanca" onClick={closeMenu}>
-                        Wynajmij dmuchańca
-                    </Link>
+                    <Link href="/kreatywne-laboratorium" onClick={closeMenu}>Zajęcia z Natalią</Link>
+                    <Link href="/mikolaj" onClick={closeMenu}>Mikołaj i Elf</Link>
+                    <Link href="/dmuchance" onClick={closeMenu}>Wynajmij dmuchańca</Link>
                     <Link href="/o-nas" onClick={closeMenu}>O nas</Link>
                     <Link href="/atrakcje" onClick={closeMenu}>Atrakcje</Link>
+                    <Link href="/ciekly-azot" onClick={closeMenu}>Ciekły azot</Link>
                     <Link href="/galeria" onClick={closeMenu}>Galeria</Link>
                     <Link href="/opinie" onClick={closeMenu}>Opinie</Link>
+                    <Link href="/blog" onClick={closeMenu}>Blog</Link>
                     <Link href="/kontakt" onClick={closeMenu}>Kontakt</Link>
                 </nav>
 
                 <div className="header__actions">
                     <Link href="/formularz-rezerwacji" className="header__button" onClick={closeMenu}>
-                        Zarezerwuj termin
+                        Zapytaj o termin
                     </Link>
                     <button
                         className={`header__menu-button ${menuOpen ? "is-open" : ""}`}

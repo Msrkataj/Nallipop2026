@@ -73,7 +73,7 @@ export default function ZgodyIWizerunekPage() {
       <LegalSection id="wdrozenie" title="E. Wymagania wdrożeniowe dla cookies">
         <LegalList>
           <li>Przycisk „Odrzucam opcjonalne” powinien być widoczny na pierwszej warstwie i równie łatwy do użycia jak „Akceptuję wszystkie”.</li>
-          <li>Google Analytics i osadzony feed Facebooka nie mogą uruchomić się przed zgodą na odpowiednią kategorię.</li>
+          <li>Google Analytics i Google Ads powinny przed zgodą działać wyłącznie w ograniczonym trybie Consent Mode z opcjonalnym przechowywaniem ustawionym jako „denied”; pełny pomiar może działać dopiero po zgodzie na odpowiednią kategorię. Feed Facebooka pozostaje zablokowany do czasu zgody.</li>
           <li>Należy zapisywać dowód zgody: jej zakres, czas, wersję komunikatu i identyfikator techniczny w rozsądnym zakresie.</li>
           <li>Na każdej podstronie powinien być dostępny link „Ustawienia cookies”, pozwalający równie łatwo wycofać zgodę.</li>
           <li>Po każdej zmianie skryptów lub dostawców należy wykonać skan cookies i uaktualnić panel oraz Politykę.</li>

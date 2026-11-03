@@ -7,6 +7,9 @@ import { motion } from "framer-motion";
 import { getDownloadURL, listAll, ref as storageRef } from "firebase/storage";
 import attractionsData from "@/data/atrakcje.json";
 import SocialLinks from "@/components/SocialLinks";
+import NitrogenTeaser from "@/components/NitrogenTeaser";
+import ToddlerZoneBanner from "@/components/ToddlerZoneBanner";
+import PhotoboothTeaser from "@/components/PhotoboothTeaser";
 import BrandLogo from "@/components/BrandLogo";
 import { storage } from "@/lib/firebase";
 import PageDecorations from "@/components/PageDecorations";
@@ -44,6 +47,7 @@ export default function AtrakcjePage() {
   const [bubbleVideoLoading, setBubbleVideoLoading] = useState(true);
   const [bubbleVideoError, setBubbleVideoError] = useState(false);
   const detailRef = useRef(null);
+  const categoriesRef = useRef(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -127,36 +131,78 @@ export default function AtrakcjePage() {
     scrollToDetails();
   }
 
+  function showMoreCategories() {
+    const rail = categoriesRef.current;
+    if (!rail) return;
+
+    rail.scrollTo({
+      left: rail.scrollLeft + Math.min(rail.clientWidth * 0.78, 320),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+    });
+  }
+
   return (
     <main className="attractions-page decorated-page">
       <PageDecorations variant="attractions" />
       <section className="attractions-hero">
         <div className="container attractions-hero__grid">
           <motion.div className="attractions-hero__copy" {...fadeUp}>
+            <nav className="offer-breadcrumb" aria-label="Breadcrumb">
+              <Link href="/">{attractionsData.breadcrumb.home}</Link>
+              <span aria-hidden="true">›</span>
+              <span>{attractionsData.breadcrumb.current}</span>
+            </nav>
+            <span className="attractions-hero__eyebrow">Pomysły na niezapomnianą zabawę</span>
             <h1>
               {attractionsData.hero.title} <span>{attractionsData.hero.highlight}</span>
             </h1>
             <p>{attractionsData.hero.description}</p>
+            <div className="attractions-hero__actions">
+              <Link className="button button--primary" href="#wybierz-atrakcje">
+                Odkryj atrakcje <span aria-hidden="true">↓</span>
+              </Link>
+              <Link className="attractions-hero__text-link" href="/formularz-rezerwacji">
+                Pomóż mi wybrać <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+            <div className="attractions-hero__proof" aria-label="Najważniejsze informacje">
+              <span><strong>30+</strong> pomysłów</span>
+              <span><strong>6</strong> kategorii</span>
+              <span><strong>WOW</strong> w cenie uśmiechu</span>
+            </div>
           </motion.div>
           <motion.div className="attractions-hero__visual" {...fadeUp}>
             <span className="attractions-hero__photo image-fill" />
             <strong>{attractionsData.hero.badge}</strong>
+            <div className="attractions-hero__tags" aria-hidden="true">
+              <span>Animacje</span>
+              <span>Warsztaty</span>
+              <span>Efekt WOW</span>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      <section className="attractions-picker">
+      <PhotoboothTeaser />
+      <ToddlerZoneBanner />
+      <NitrogenTeaser />
+
+      <section className="attractions-picker" id="wybierz-atrakcje">
         <div className="container">
-          <nav className="offer-breadcrumb" aria-label="Breadcrumb">
-            <Link href="/">{attractionsData.breadcrumb.home}</Link>
-            <span aria-hidden="true">›</span>
-            <span>{attractionsData.breadcrumb.current}</span>
-          </nav>
-          <div className="section-heading">
+          <div className="section-heading attractions-picker__heading">
+            <span className="attractions-step">Krok 1 z 2</span>
             <h2>{attractionsData.sections.categoryHeading}</h2>
+            <p>Dotknij wybranej kategorii. Pokażemy Ci konkretne pomysły i warianty.</p>
           </div>
 
-          <motion.div className="attractions-categories" {...fadeUp}>
+          <div className="attractions-scroll-guide">
+            <span>Przesuń karty w bok</span>
+            <button type="button" onClick={showMoreCategories} aria-label="Pokaż kolejne kategorie atrakcji">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <motion.div className="attractions-categories" ref={categoriesRef} {...fadeUp}>
             {categories.map((category) => (
               <button
                 className={`attraction-category ${category.id === activeCategory.id ? "is-active" : ""}`}
@@ -180,6 +226,7 @@ export default function AtrakcjePage() {
       <section className="attractions-details" id="lista-atrakcji" ref={detailRef}>
         <div className="container attractions-details__shell">
           <aside className="attractions-sidebar" style={{ "--category-color": activeCategory.color }}>
+            <span className="attractions-step">Krok 2 z 2</span>
             <span className="attractions-sidebar__icon">
               {activeCategory.iconImage ? <img src={activeCategory.iconImage} alt="" /> : activeCategory.icon}
             </span>
@@ -187,6 +234,7 @@ export default function AtrakcjePage() {
             <p>{activeCategory.description}</p>
 
             <div className="attractions-subcategories">
+              <span className="attractions-subcategories__label">Wybierz rodzaj atrakcji:</span>
               {activeCategory.subcategories.map((subcategory) => (
                 <button
                   className={subcategory.id === activeSubcategory.id ? "is-active" : ""}
@@ -224,6 +272,7 @@ export default function AtrakcjePage() {
                   <div>
                     <h3>{item.title}</h3>
                     <p>{item.text}</p>
+                    {item.href && <Link className="attraction-card__reserve" href={item.href}>{item.linkLabel || "Dodaj do zapytania"} <span aria-hidden="true">→</span></Link>}
                   </div>
                 </article>
               ))}
@@ -420,6 +469,7 @@ export default function AtrakcjePage() {
             <Link href="/atrakcje">Atrakcje</Link>
             <Link href="/galeria">Galeria</Link>
             <Link href="/opinie">Opinie</Link>
+            <Link href="/blog">Blog</Link>
             <Link href="/kontakt">Kontakt</Link>
           </div>
 

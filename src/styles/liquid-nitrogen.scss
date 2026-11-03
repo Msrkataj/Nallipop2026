@@ -1,0 +1,111 @@
+.nitrogen-page {
+  --n-ink: #111e38;
+  --n-muted: #536078;
+  --n-cyan: #8af5df;
+  background: #f6f9fb;
+  color: var(--n-ink);
+  overflow: clip;
+  h1, h2, h3 { font-family: var(--font-poppins), sans-serif; color: inherit; }
+  h2 { font-size: clamp(2rem, 3.5vw, 3.2rem); line-height: 1.16; letter-spacing: -.05em; }
+  em { font-style: normal; color: #087c7b; }
+  p { line-height: 1.8; }
+  a:focus-visible, summary:focus-visible { outline: 3px solid #13b8ad; outline-offset: 6px; }
+  section[id] { scroll-margin-top: 100px; }
+}
+.nitrogen-container { width: min(1240px, calc(100% - 80px)); margin-inline: auto; }
+.nitrogen-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: .65rem; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; line-height: 1.8; i { width: 7px; height: 7px; background: var(--n-cyan); border-radius: 50%; box-shadow: 0 0 20px #8af5df; } }
+.nitrogen-hero { position: relative; isolation: isolate; background: #071628; color: #fff; }
+.nitrogen-hero__image { position: absolute; inset: 0; z-index: -3; img { object-fit: cover; object-position: 65% 48%; } }
+.nitrogen-hero__shade { position: absolute; inset: 0; z-index: -2; background: linear-gradient(90deg, #071628f5 0%, #071628df 24%, #07162882 48%, #07162808 74%), linear-gradient(0deg, #071628 0%, transparent 28%, #07162832 100%); }
+.nitrogen-hero__inner { position: relative; min-height: 730px; padding-top: 26px; padding-bottom: 30px; }
+.nitrogen-breadcrumb { display: flex; flex-wrap: wrap; gap: 10px; color: #ccdce6; font-size: .67rem; line-height: 1.8; > span { display: inline-flex; gap: 10px; } i { font-style: normal; opacity: .6; } a:hover { color: var(--n-cyan); text-decoration: underline; text-underline-offset: 4px; } }
+.nitrogen-hero__copy { max-width: 650px; padding-top: 82px; padding-bottom: 90px; .nitrogen-eyebrow { color: var(--n-cyan); } h1 { font-size: clamp(3.2rem, 5.7vw, 5.6rem); line-height: 1.07; letter-spacing: -.065em; margin: 23px 0 28px; font-weight: 800; } h1 em { color: var(--n-cyan); display: inline-block; } > p { max-width: 440px; font-size: 1rem; color: #d0dee8; } }
+.nitrogen-actions { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-top: 32px; }
+.nitrogen-button { display: inline-flex; align-items: center; justify-content: center; gap: 25px; padding: 17px 23px; min-height: 54px; border-radius: 10px; font-size: .8rem; font-weight: 800; line-height: 1.5; background: #8af5df; color: #102a32; transition: transform .2s, box-shadow .2s, background .2s; > span { font-size: 1.2rem; } &:hover { background: #b7ffef; transform: translateY(-3px); box-shadow: 0 10px 35px #43e9d02b; } }
+.nitrogen-text-link { display: inline-flex; align-items: center; gap: 15px; font-size: .76rem; font-weight: 700; padding-block: 12px; text-underline-offset: 5px; > span { font-size: 1.2rem; } &:hover { text-decoration: underline; } }
+.nitrogen-hero__location { display: flex; align-items: center; gap: 12px; margin-top: 24px; color: #bed0dc; font-size: .66rem; }
+.nitrogen-temperature { position: absolute; right: 4px; bottom: 110px; transform: rotate(7deg); border: 1px solid #c2e7f44f; background: #0a223dba; backdrop-filter: blur(12px); border-radius: 24px; width: 190px; height: 178px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 20px 70px #0512234d; > span { color: #cbebf3; font-size: .53rem; letter-spacing: .12em; font-weight: 700; } strong { font-size: 3.8rem; letter-spacing: -.08em; font-weight: 800; line-height: 1.5; } small { font-size: 1.2rem; vertical-align: super; letter-spacing: -.04em; color: var(--n-cyan); margin-left: 5px; } }
+.nitrogen-hero__bottom { display: flex; align-items: center; justify-content: space-between; color: #b6cedb; border-top: 1px solid #b4cfdf24; padding-top: 20px; font-size: .57rem; letter-spacing: .17em; > a { display: grid; place-items: center; border: 1px solid #b4cfdf55; border-radius: 50%; width: 34px; height: 34px; font-size: 1.1rem; } }
+.nitrogen-ribbon { display: flex; align-items: center; justify-content: center; gap: clamp(20px, 3.4vw, 55px); background: #96f2e0; padding: 20px 25px; color: #153639; font-size: .71rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; i { font-size: 1.25rem; font-style: normal; } }
+.nitrogen-discover { padding-top: 100px; padding-bottom: 80px; }
+.nitrogen-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 60px; margin-bottom: 42px; h2 { margin-top: 16px; } > div { flex: 1.1; } > p { flex: .9; max-width: 450px; color: var(--n-muted); font-size: .87rem; } .nitrogen-eyebrow { color: #4a6876; } }
+.nitrogen-discover__grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 60px; align-items: center; }
+.nitrogen-flower { position: relative; min-height: 470px; height: 100%; border-radius: 28px 95px 28px 28px; overflow: hidden; background: #0b243c; img { object-fit: cover; object-position: 43% center; } &__tag { position: absolute; top: 24px; left: 24px; max-width: calc(100% - 48px); border: 1px solid #ffffff4d; border-radius: 99px; padding: 10px 14px; background: #09213cb5; color: #fff; font-size: .62rem; font-weight: 700; backdrop-filter: blur(10px); } figcaption { position: absolute; bottom: 17px; left: 23px; right: 23px; color: #e0f2f5; font-size: .56rem; text-shadow: 0 1px 8px #000; } }
+.nitrogen-discover__stories { display: grid; gap: 26px; padding-block: 14px; > article { display: flex; align-items: flex-start; gap: 22px; > span { font-size: .67rem; font-weight: 800; color: #2b7d82; border: 1px solid #a9d5d1; border-radius: 50%; display: grid; place-items: center; width: 35px; height: 35px; flex-shrink: 0; margin-top: 3px; } h3 { font-size: 1.16rem; letter-spacing: -.03em; line-height: 1.4; margin-bottom: 10px; } p { color: var(--n-muted); font-size: .81rem; } } .nitrogen-program-note { font-size: .66rem; color: #697487; padding: 17px 0 0 57px; border-top: 1px solid #dbe5e9; } }
+.nitrogen-science-note { font-size: .62rem; color: #667487; margin-top: 23px; a { text-decoration: underline; text-underline-offset: 3px; white-space: normal; } }
+.nitrogen-occasions { padding-block: 35px 90px; }
+.nitrogen-occasion-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.nitrogen-occasion { position: relative; display: flex; flex-direction: column; overflow: hidden; padding: 29px 34px 32px; min-height: 430px; background: #e1e4ff; border-radius: 24px; transition: transform .25s, box-shadow .25s; &--szkoly-i-przedszkola { background: #d8f3e9; } &__top { display: flex; justify-content: space-between; align-items: center; text-transform: uppercase; font-size: .64rem; letter-spacing: .12em; font-weight: 800; > span:last-child { font-size: 1.2rem; } } &__art { position: relative; align-self: center; display: block; margin: 22px 0 18px; color: #6c59d8; font-size: clamp(4rem, 7.5vw, 7rem); line-height: 1.1; letter-spacing: -.09em; font-family: var(--font-poppins), sans-serif; transform: rotate(-8deg); text-shadow: 3px 4px 0 #f8f8ff; transition: transform .35s; sub { font-size: .5em; } > span { font-size: .55em; vertical-align: super; margin-left: 14px; } } &--szkoly-i-przedszkola .nitrogen-occasion__art { color: #1c867b; transform: rotate(6deg); } h3 { font-size: 1.47rem; letter-spacing: -.04em; line-height: 1.3; margin-bottom: 12px; } p { max-width: 360px; color: #4e5877; font-size: .82rem; } &__link { display: inline-flex; align-items: center; gap: 16px; font-size: .74rem; font-weight: 800; margin-top: 23px; } &:hover { transform: translateY(-5px); box-shadow: 0 16px 30px #293c5712; .nitrogen-occasion__art { transform: rotate(0deg) scale(1.04); } } }
+.nitrogen-event { display: flex; justify-content: space-between; gap: 22px; padding: 25px 0; font-size: .77rem; color: #536078; a { color: #176967; font-weight: 800; span { margin-left: 10px; } &:hover { text-decoration: underline; text-underline-offset: 4px; } } }
+.nitrogen-care { background: #eaf0f5; padding: 76px 0; &__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; > div h2 { font-size: clamp(1.9rem, 3.1vw, 2.7rem); margin: 17px 0 23px; } > div p { max-width: 430px; color: var(--n-muted); font-size: .83rem; } } ol { list-style: none; display: grid; gap: 25px; } li { display: flex; gap: 20px; > span { font-size: .65rem; color: #477879; padding-top: 4px; } h3 { font-size: .93rem; letter-spacing: -.02em; margin-bottom: 7px; } p { color: var(--n-muted); font-size: .77rem; } } }
+.nitrogen-faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 85px; padding-block: 95px; h2 { margin: 15px 0 20px; } > div > p { font-size: .82rem; color: var(--n-muted); margin-bottom: 12px; } > div > a { font-size: .95rem; font-weight: 800; span { margin-left: 10px; } } &__list { details { padding: 22px 0; border-bottom: 1px solid #d5dfe7; &:first-child { border-top: 1px solid #d5dfe7; } } summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; list-style: none; cursor: pointer; font-size: .83rem; font-weight: 700; line-height: 1.6; &::-webkit-details-marker { display: none; } span { font-size: 1.45rem; color: #21827f; font-weight: 400; transition: transform .2s; } } details[open] summary span { transform: rotate(45deg); } p { font-size: .78rem; color: var(--n-muted); padding-top: 13px; padding-right: 30px; } } }
+.nitrogen-finale { position: relative; isolation: isolate; padding: 80px 0 37px; overflow: hidden; background: #0b2037; color: #fff; text-align: center; &::before, &::after { content: ""; position: absolute; width: 650px; height: 400px; border-radius: 50%; filter: blur(70px); opacity: .3; z-index: -1; background: radial-gradient(ellipse, #4a9fa1, transparent 65%); } &::before { left: -240px; bottom: -180px; } &::after { right: -250px; top: -100px; background: radial-gradient(ellipse, #817acf, transparent 65%); } .nitrogen-eyebrow { color: var(--n-cyan); } h2 { margin-top: 20px; font-size: clamp(2.15rem, 4vw, 3.6rem); } em { color: var(--n-cyan); } p { color: #c3d4de; max-width: 510px; margin: 23px auto 0; font-size: .86rem; } .nitrogen-actions { justify-content: center; } small { display: block; color: #9fb8ca; font-size: .57rem; margin-top: 65px; } }
+.nitrogen-context { background: #eaf1f2; padding: 72px 0; margin-bottom: 60px; }
+.nitrogen-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; article { border-top: 1px solid #bdcccf; padding-top: 22px; > span { font-size: .65rem; color: #477879; } h3 { font-size: 1.05rem; letter-spacing: -.03em; margin: 18px 0 12px; } p { font-size: .8rem; color: var(--n-muted); } } }
+.nitrogen-planning { display: flex; align-items: center; justify-content: space-between; gap: 65px; margin-top: 40px; padding-top: 32px; border-top: 1px solid #c9d9dc; p { max-width: 680px; font-size: .82rem; color: var(--n-muted); } a { flex-shrink: 0; } }
+.nitrogen-page--occasion .nitrogen-hero__copy { max-width: 670px; h1 { font-size: clamp(3rem, 5vw, 4.5rem); } }
+@media (max-width: 1100px) {
+  .nitrogen-container { width: calc(100% - 56px); }
+  .nitrogen-hero__copy { max-width: 590px; }
+  .nitrogen-temperature { right: 0; width: 155px; height: 145px; strong { font-size: 3rem; } > span { font-size: .45rem; } }
+  .nitrogen-section-heading, .nitrogen-discover__grid, .nitrogen-care__grid, .nitrogen-faq { gap: 40px; }
+  .nitrogen-discover__grid { grid-template-columns: 1fr 1fr; }
+  .nitrogen-ribbon { font-size: .59rem; gap: 22px; }
+  .nitrogen-planning { gap: 30px; }
+}
+@media (max-width: 760px) {
+  .nitrogen-container { width: calc(100% - 40px); }
+  .nitrogen-hero__inner { min-height: 900px; display: flex; flex-direction: column; padding-top: 19px; padding-bottom: 19px; }
+  .nitrogen-hero__image { top: 310px; img { object-position: 66% center; } }
+  .nitrogen-hero__shade { background: linear-gradient(180deg, #071628 0%, #071628 29%, #071628e0 42%, #07162805 65%, #07162899 90%, #071628 100%); }
+  .nitrogen-hero__copy { padding-top: 43px; padding-bottom: 250px; max-width: 590px; h1 { font-size: clamp(2.95rem, 9.1vw, 4.7rem); margin: 18px 0 22px; } > p { font-size: .88rem; max-width: 430px; } }
+  .nitrogen-hero__bottom { margin-top: auto; }
+  .nitrogen-hero__location { font-size: .61rem; }
+  .nitrogen-actions { gap: 12px 22px; margin-top: 24px; }
+  .nitrogen-button { font-size: .75rem; padding: 15px 20px; }
+  .nitrogen-text-link { font-size: .71rem; }
+  .nitrogen-temperature { bottom: 75px; right: 5px; width: 132px; height: 128px; border-radius: 18px; strong { font-size: 2.65rem; } small { font-size: .9rem; } > span { font-size: .39rem; } }
+  .nitrogen-ribbon { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 20px; text-align: center; padding: 19px 12px; font-size: .58rem; i { display: none; } }
+  .nitrogen-discover { padding-block: 60px 45px; }
+  .nitrogen-section-heading { display: block; margin-bottom: 30px; h2 { margin-top: 12px; } > p { margin-top: 22px; max-width: 100%; font-size: .83rem; } }
+  .nitrogen-discover__grid { grid-template-columns: 1fr; gap: 25px; }
+  .nitrogen-flower { min-height: 360px; aspect-ratio: 1.25; border-radius: 20px 70px 20px 20px; }
+  .nitrogen-discover__stories { gap: 24px; article { gap: 16px; } article p { font-size: .8rem; } .nitrogen-program-note { padding-left: 0; } }
+  .nitrogen-science-note { font-size: .59rem; }
+  .nitrogen-occasions { padding-block: 20px 40px; }
+  .nitrogen-occasion-grid { gap: 18px; }
+  .nitrogen-occasion { min-height: 380px; padding: 24px; h3 { font-size: 1.25rem; } p { font-size: .76rem; } &__art { margin-block: 30px; } &__top { font-size: .57rem; letter-spacing: .08em; } }
+  .nitrogen-event { flex-direction: column; gap: 12px; font-size: .73rem; }
+  .nitrogen-care { padding-block: 50px; &__grid { grid-template-columns: 1fr; gap: 30px; } }
+  .nitrogen-faq { grid-template-columns: 1fr; gap: 30px; padding-block: 55px; }
+  .nitrogen-finale { padding-top: 55px; p { font-size: .8rem; } small { margin-top: 45px; line-height: 1.8; } }
+  .nitrogen-context { padding-block: 45px; margin-bottom: 35px; }
+  .nitrogen-features { grid-template-columns: 1fr; gap: 22px; article h3 { margin-top: 10px; } }
+  .nitrogen-planning { flex-direction: column; align-items: flex-start; gap: 22px; margin-top: 25px; padding-top: 23px; }
+  .nitrogen-page--occasion .nitrogen-hero__copy h1 { font-size: clamp(2.5rem, 8.4vw, 4.25rem); }
+}
+@media (max-width: 520px) {
+  .nitrogen-occasion-grid { grid-template-columns: 1fr; }
+  .nitrogen-occasion { min-height: 360px; &__art { font-size: 5.6rem; margin-block: 22px; } }
+  .nitrogen-eyebrow { font-size: .57rem; letter-spacing: .1em; }
+  .nitrogen-hero__inner { min-height: 930px; }
+  .nitrogen-hero__image { top: 390px; }
+  .nitrogen-hero__shade { background: linear-gradient(180deg, #071628 0%, #071628 38%, #071628b0 50%, #07162805 69%, #071628 100%); }
+  .nitrogen-hero__copy { padding-top: 38px; }
+  .nitrogen-hero__bottom { font-size: .5rem; letter-spacing: .1em; }
+  .nitrogen-breadcrumb { font-size: .58rem; gap: 7px; > span { gap: 7px; } }
+  .nitrogen-flower { min-height: 315px; }
+  .nitrogen-finale .nitrogen-actions { flex-direction: column; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nitrogen-hero__copy { animation: nitrogen-arrive .75s ease-out both; }
+  .nitrogen-temperature { animation: nitrogen-hover 7s ease-in-out infinite; }
+  .nitrogen-finale::before, .nitrogen-finale::after { animation: nitrogen-mist 15s ease-in-out infinite alternate; }
+}
+@keyframes nitrogen-arrive { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes nitrogen-hover { 0%, 100% { transform: rotate(7deg) translateY(0); } 50% { transform: rotate(4deg) translateY(-12px); } }
+@keyframes nitrogen-mist { from { transform: translateX(-35px); } to { transform: translateX(70px); } }
+@media (prefers-reduced-motion: reduce) {
+  html:has(.nitrogen-page) { scroll-behavior: auto; }
+  .nitrogen-page *, .nitrogen-page *::before, .nitrogen-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

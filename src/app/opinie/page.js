@@ -98,7 +98,7 @@ const fixlyReviews = [
     location: "Warszawa",
     date: "15 grudnia 2024",
     source: "Opinia z Fixly",
-    text: "Zabawa była świetnie zorganizowana. Warsztaty slime to hit – kreatywnie, dużo uśmiechu, pamiątka do zabrania do domu. Dzieci były zachwycone. Polecam :)",
+    text: "Zabawa była świetnie zorganizowana. Warsztaty z masą sensoryczną to hit – kreatywnie, dużo uśmiechu, pamiątka do zabrania do domu. Dzieci były zachwycone. Polecam :)",
   },
   {
     name: "Beata",

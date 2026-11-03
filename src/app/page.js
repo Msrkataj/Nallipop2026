@@ -3,14 +3,25 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWandMagicSparkles, faCalendarDays, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { AnimatePresence, motion } from "framer-motion";
 import { inflatableItems } from "@/data/inflatables";
+import { autumnPackage, halloweenPackage } from "@/data/seasonal-packages";
+import { creativeLab } from "@/data/creative-lab";
+import { pumpkinWorkshops } from "@/data/pumpkin-workshops";
 import SocialLinks from "@/components/SocialLinks";
 import ConsentAwareFacebookPosts from "@/components/ConsentAwareFacebookPosts";
+import SundayPromo from "@/components/SundayPromo";
 import BrandLogo from "@/components/BrandLogo";
 import PageDecorations from "@/components/PageDecorations";
+import OccasionPlanner from "@/components/OccasionPlanner";
+import NitrogenTeaser from "@/components/NitrogenTeaser";
+import PhotoboothHomeBanner from "@/components/PhotoboothHomeBanner";
+import { reportContactFormConversion } from "@/lib/google-ads";
 import "@/styles/hero.scss";
 import "@/styles/facebook-posts.scss";
+import "@/styles/sunday-promo.scss";
 
 const fadeUp = {
   initial: { opacity: 0, y: 26 },
@@ -21,52 +32,112 @@ const fadeUp = {
 
 const heroSlides = [
   {
+    id: "animacje-w-kuli",
+    href: autumnPackage.path,
+    image: "/images/hero-animacje-w-kuli.webp",
+    photoPanel: true,
+    imagePosition: "center center",
+    caption: "Jesień czy Halloween? Animacje i warsztaty w kuli",
+    kicker: "Wyjątkowy pakiet tylko do 31 października",
+    title: ["Jesień czy", "Halloween?", "Wybierz swój klimat!"],
+    description: "Dwa magiczne światy, jedna niezwykła kula. Wybierz jesienną lub halloweenową aranżację i zaproś dzieci na tematyczne warsztaty w środku. Dwie godziny animacji, tworzenia i wspólnej zabawy.",
+    actions: [
+      { href: autumnPackage.path, label: "Odkryj oba warianty", icon: faCalendarDays, tone: "primary" },
+      { href: "tel:+48795103108", label: "Zadzwoń do nas", icon: faPhone, tone: "light" },
+    ],
+    cards: [
+      ["✨", "Jesień lub Halloween", "wybierz swój klimat"],
+      ["🎨", "Animacje i warsztaty", "w jednym pakiecie"],
+      ["🍂", "Wyjątkowa okazja", "tylko do 31 października"],
+    ],
+  },
+  {
+    id: "mikolaj",
+    href: "/mikolaj",
+    image: "/images/hero-mikolaj.webp",
+    photoPanel: true,
+    imagePosition: "54% center",
+    caption: "Święty Mikołaj podczas spotkania z dzieckiem",
+    kicker: "Świąteczne wizyty z Nallipop",
+    title: ["Ruszyły zapisy!", "Mikołaj i elf", "czekają na Was."],
+    description: "Zaproś Świętego Mikołaja, wybierz wizytę z Elfem lub świąteczne warsztaty z Elfem. Odkryj trzy sposoby na spotkanie pełne uśmiechów, zabawy i grudniowej magii.",
+    actions: [
+      { href: "/mikolaj", label: "Poznaj świąteczną ofertę", icon: faCalendarDays, tone: "primary" },
+      { href: "tel:+48795103108", label: "Zadzwoń do nas", icon: faPhone, tone: "light" },
+    ],
+    cards: [
+      ["🎅", "Święty Mikołaj", "na Waszym wydarzeniu"],
+      ["✨", "Elf", "dołącza do wizyty"],
+      ["🎨", "Warsztaty z Elfem", "świąteczne tworzenie"],
+    ],
+  },
+  {
+    id: "malowanie-dyni",
+    href: pumpkinWorkshops.path,
+    image: pumpkinWorkshops.image,
+    photoPanel: true,
+    imagePosition: "center center",
+    caption: "Jesienne warsztaty malowania dyni dla dzieci",
+    kicker: "Jesień pełna kolorów z Nallipop",
+    title: ["Malowanie dyni", "Małe ręce,", "wielkie pomysły!"],
+    description: "Zapraszamy na jesienne warsztaty malowania dyni! Dzieci wybierają kolory, tworzą własne wzory i zamieniają dynie w małe dzieła sztuki. Twórcza zabawa dla przedszkoli, szkół i na rodzinne wydarzenia.",
+    actions: [
+      { href: pumpkinWorkshops.path, label: "Poznaj warsztaty", icon: faWandMagicSparkles, tone: "primary" },
+      { href: pumpkinWorkshops.reservationHref, label: "Zapytaj o termin", icon: faCalendarDays, tone: "light" },
+    ],
+    cards: [
+      ["🎃", "Malowanie dyni", "jesienne warsztaty"],
+      ["🎨", "Własne pomysły", "kolory i wyobraźnia"],
+      ["🍂", "Wspólne tworzenie", "radość dla dzieci"],
+    ],
+  },
+  {
+    id: "przedszkola",
+    image: "/images/hero-przedszkole.webp",
+    photoPanel: true,
+    imagePosition: "60% center",
+    caption: "Warsztaty i animacje dla przedszkoli",
+    kicker: "Warsztaty i animacje dla przedszkoli",
+    title: ["Przyjeżdżamy", "do przedszkola", "z zabawą!"],
+    description: "Prowadzimy zajęcia dla przedszkolaków w Waszej placówce. Dzieci biorą udział w eksperymentach z suchym lodem, pracach plastycznych i wspólnych zabawach. Program dopasowujemy do wieku grupy.",
+    actions: [
+      { href: "/oferta?oferta=warsztaty#opis-oferty", label: "Zobacz zajęcia", icon: faWandMagicSparkles, tone: "primary" },
+      { href: "/formularz-rezerwacji", label: "Zapytaj o termin", icon: faCalendarDays, tone: "light" },
+    ],
+    cards: [
+      ["🧪", "Eksperymenty", "z suchym lodem"],
+      ["🎨", "Prace plastyczne", "tworzone przez dzieci"],
+      ["✨", "Z dojazdem", "do przedszkola"],
+    ],
+  },
+  {
     id: "wspomnienia",
     image: "/images/hero-kids.webp",
-    caption: "Urodziny, animacje i warsztaty",
-    kicker: "Animacje i warsztaty dla dzieci",
-    title: ["Tworzymy dziecięce", "wspomnienia, które", "zostają na lata."],
+    caption: "Porozmawiajmy o Waszej imprezie",
+    kicker: "Masz pytania? Jesteśmy pod telefonem",
+    title: ["Zadzwoń i dopytaj", "o najlepszą opcję", "dla Waszej imprezy."],
     description:
-      "Pełne radości animacje, kreatywne warsztaty i wyjątkowe atrakcje dla dzieci w Warszawie i okolicach.",
+      "Zadzwoń pod 795 103 108. Podpowiemy, jakie animacje i atrakcje najlepiej sprawdzą się w Waszym terminie, miejscu i budżecie.",
+    actions: [
+      { href: "tel:+48795103108", label: "Zadzwoń i dopytaj", icon: faPhone, tone: "primary" },
+      {
+        href: "#oferta",
+        label: "Zobacz ofertę",
+        icon: faWandMagicSparkles,
+        tone: "light",
+      },
+    ],
     cards: [
-      ["⭐", "5.0", "w opiniach"],
-      ["🎉", "500+", "wydarzeń"],
+      ["☎", "795 103 108", "zadzwoń teraz"],
+      ["💬", "Doradzimy", "bez zobowiązań"],
       ["⌖", "Warszawa", "i okolice"],
-    ],
-  },
-  {
-    id: "warsztaty",
-    image: "/images/oferta/service-warsztaty.webp",
-    caption: "Twórcze warsztaty dla dzieci",
-    kicker: "Kreatywne warsztaty dla dzieci",
-    title: ["Tworzymy małe", "dzieła i wielkie", "chwile radości."],
-    description:
-      "Kolorowe materiały, bezpieczne eksperymenty i mnóstwo swobody, dzięki której każde dziecko może tworzyć po swojemu.",
-    cards: [
-      ["🎨", "Kreatywnie", "bez nudy"],
-      ["🧪", "Eksperymenty", "pełne efektów"],
-      ["✨", "DIY", "własne dzieła"],
-    ],
-  },
-  {
-    id: "eventy",
-    image: "/images/oferta/service-eventy.webp",
-    caption: "Eventy rodzinne i firmowe",
-    kicker: "Animacje na wyjątkowe okazje",
-    title: ["Rozkręcamy eventy,", "które dzieci", "pamiętają na długo."],
-    description:
-      "Od pierwszego pomysłu po finał wydarzenia dbamy o dobrą energię, piękną oprawę i świetną zabawę bez chaosu.",
-    cards: [
-      ["🎭", "Autorski", "scenariusz"],
-      ["🫧", "Atrakcje", "z efektem wow"],
-      ["🤝", "Sprawdzony", "zespół"],
     ],
   },
   {
     id: "dmuchaniec",
     image: "/images/dmuchance/safari/main.webp",
-    imagePosition: "right 48%",
-    imageSize: "78% auto",
+    photoPanel: true,
+    imagePosition: "center 70%",
     caption: "Nowy dmuchaniec Safari",
     kicker: "Nowość w Nallipop",
     title: ["Nowy dmuchaniec", "Safari już", "dostępny!"],
@@ -81,6 +152,28 @@ const heroSlides = [
 ];
 
 const services = [
+  {
+    id: "kreatywne-laboratorium",
+    title: creativeLab.title,
+    description: "Zajęcia z Natalią dla dzieci 5–10 lat w Pruszkowie",
+    image: creativeLab.image,
+    href: creativeLab.path,
+  },
+  {
+    id: "halloween",
+    title: "Halloween w kuli",
+    description: "Tematyczne warsztaty i animacje wśród duszków i dyń",
+    image: halloweenPackage.image,
+    href: halloweenPackage.path,
+  },
+  {
+    id: "mikolaj",
+    title: "Mikołaj i Elf",
+    description: "Wizyty Mikołaja i świąteczne warsztaty z Elfem",
+    image: "/images/mikolaj/mikolaj-z-elfem.webp",
+    imagePosition: "center 58%",
+    href: "/mikolaj",
+  },
   {
     id: "urodziny",
     title: "Urodziny",
@@ -101,7 +194,7 @@ const services = [
     heading: "Twórcze warsztaty, które wciągają dzieci od pierwszej minuty",
     copy: "Łączymy swobodną zabawę z rozwojem sprawczości, koncentracji i wyobraźni. Dzieci tworzą, eksperymentują i zabierają efekty pracy do domu.",
     ages: ["4-6 lat", "7-9 lat", "10-12 lat"],
-    motifs: ["Slime", "Brokat", "Eksperymenty", "Eko prace", "Kolory", "DIY"],
+    motifs: ["Glutek", "Brokat", "Eksperymenty", "Eko prace", "Kolory", "DIY"],
   },
   {
     id: "festyny",
@@ -175,13 +268,17 @@ const galleryFallbackMedia = [
 ];
 
 const attractions = [
+  ["Fotobudka", "/images/fotobudka/lustro-urodziny.webp", "/fotobudka"],
+  ["Strefa malucha", "/images/strefa-malucha/strefa.webp", "/strefa-malucha"],
+  ["Ciekły azot", "/images/ciekly-azot/pokaz.webp", "/ciekly-azot"],
+  ["Malowanie dyni", pumpkinWorkshops.image, pumpkinWorkshops.path],
   ["Malowanie twarzy", "/images/atrakcje/malowanie-twarzy.webp"],
   ["Tatuaże brokatowe", "/images/atrakcje/tatuaze-broaktowe.webp"],
   ["Bańki XXL", "/images/atrakcje/banki-xxl.webp"],
   ["Eksperymenty", "/images/atrakcje/eksperymenty.webp"],
   ["Suchy lód", "/images/atrakcje/suchy-lod.webp"],
   ["Piniaty", "/images/atrakcje/piniaty.webp"],
-  ["Slime", "/images/atrakcje/slime.webp"],
+  ["Glutek", "/images/atrakcje/slime.webp"],
   ["Gniotki", "/images/atrakcje/gniotki.webp"],
   ["Dmuchańce", "/images/atrakcje/dmuchance.webp"],
   ["Zamykanie w bańce", "/images/atrakcje/zamykanie-w-bance.webp"],
@@ -217,15 +314,57 @@ const testimonials = [
 ];
 
 export default function HomePage() {
+  const [plannerOpen, setPlannerOpen] = useState(false);
   const [activeMedia, setActiveMedia] = useState(null);
   const [activeHeroSlideIndex, setActiveHeroSlideIndex] = useState(0);
+  const [heroPaused, setHeroPaused] = useState(false);
+  const [sphereHalloween, setSphereHalloween] = useState(false);
   const [galleryMedia, setGalleryMedia] = useState(galleryFallbackMedia);
   const [galleryStatus, setGalleryStatus] = useState("loading");
   const [footerFormStatus, setFooterFormStatus] = useState("idle");
   const [footerFormMessage, setFooterFormMessage] = useState("");
   const attractionsRailRef = useRef(null);
   const displayedGalleryMedia = galleryMedia;
-  const activeHeroSlide = heroSlides[activeHeroSlideIndex];
+  const isSphereSlide = heroSlides[activeHeroSlideIndex].id === "animacje-w-kuli";
+  const sphereVariant = sphereHalloween ? halloweenPackage : autumnPackage;
+  const activeHeroSlide = isSphereSlide ? {
+    ...heroSlides[activeHeroSlideIndex],
+    image: sphereVariant.image,
+    href: sphereVariant.path,
+    caption: sphereVariant.lead,
+    description: sphereHalloween
+      ? "Przyjazne duszki, nietoperze i rozświetlone dynie. Zaproś dzieci na tematyczne warsztaty Halloween wewnątrz kuli. Dwie godziny animacji, tworzenia i wspólnej zabawy."
+      : "Złote liście, ciepłe światełka i jesienne zachwyty. Zaproś dzieci na tematyczne warsztaty wewnątrz kuli. Dwie godziny animacji, tworzenia i wspólnej zabawy.",
+    actions: [{ href: sphereVariant.path, label: sphereHalloween ? "Odkryj kulę Halloween" : "Odkryj jesienną kulę", icon: faCalendarDays, tone: "primary" }, heroSlides[0].actions[1]],
+    cards: [[sphereHalloween ? "👻" : "🍂", sphereVariant.label, "animacje i warsztaty"], ...heroSlides[0].cards.slice(1)],
+  } : heroSlides[activeHeroSlideIndex];
+  const heroActions = activeHeroSlide.actions || [
+    {
+      href: "#oferta",
+      label: "Zobacz ofertę",
+      icon: faWandMagicSparkles,
+      tone: "primary",
+    },
+    {
+      href: "/formularz-rezerwacji",
+      label: "Rezerwuj termin",
+      icon: faCalendarDays,
+      tone: "light",
+    },
+  ];
+
+  useEffect(() => {
+    if (heroPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setTimeout(() => {
+      if (isSphereSlide && !sphereHalloween) {
+        setSphereHalloween(true);
+      } else {
+        setSphereHalloween(false);
+        setActiveHeroSlideIndex((index) => (index + 1) % heroSlides.length);
+      }
+    }, 5000);
+    return () => window.clearTimeout(timer);
+  }, [activeHeroSlideIndex, heroPaused, isSphereSlide, sphereHalloween]);
 
   async function handleFooterContact(event) {
     event.preventDefault();
@@ -248,6 +387,7 @@ export default function HomePage() {
       }
 
       form.reset();
+      reportContactFormConversion();
       setFooterFormStatus("success");
       setFooterFormMessage("Wiadomość została wysłana. Odezwiemy się najszybciej, jak to możliwe.");
     } catch (error) {
@@ -288,14 +428,11 @@ export default function HomePage() {
 
     async function loadGallery() {
       try {
-        const response = await fetch("/api/gallery-media");
+        const response = await fetch("/api/gallery-media?limit=12");
         const data = await response.json();
         if (!response.ok) throw new Error(data.message || "Nie udało się pobrać galerii.");
         const remoteMedia = data.media || [];
-        const hasRemoteInflatableMedia = remoteMedia.some(({ folderName }) => folderName === "dmuchaniec");
-        const media = hasRemoteInflatableMedia
-          ? remoteMedia
-          : [...galleryFallbackMedia, ...remoteMedia];
+        const media = remoteMedia;
 
         if (alive) {
           setGalleryMedia(media);
@@ -320,7 +457,89 @@ export default function HomePage() {
     <main className="home decorated-page">
       <PageDecorations variant="home" />
       <section className="hero-premium" id="start">
-        <div className="container hero-premium__grid">
+        <div className="hero-mobile">
+          <video
+            className="hero-mobile__video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/hero-kids.webp"
+            aria-hidden="true"
+            tabIndex={-1}
+            disablePictureInPicture
+          >
+            <source src="/main_video.mp4" type="video/mp4" media="(max-width: 700px)" />
+          </video>
+
+          <div className="hero-mobile__veil" aria-hidden="true" />
+          <div className="hero-mobile__glow hero-mobile__glow--one" aria-hidden="true" />
+          <div className="hero-mobile__glow hero-mobile__glow--two" aria-hidden="true" />
+
+          <motion.div
+            className="hero-mobile__topline"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
+          >
+            <span className="hero-mobile__brand-pill">
+              <span className="hero-mobile__brand-spark" aria-hidden="true">✦</span>
+              Nallipop moments
+            </span>
+            <span className="hero-mobile__location">Warszawa i okolice</span>
+          </motion.div>
+
+          <motion.div
+            className="hero-mobile__content"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="hero-mobile__kicker">
+              <span aria-hidden="true" />
+              Animacje dla dzieci z dojazdem
+            </span>
+            <h1>
+              Dzieci mają frajdę.
+              <strong>Ty spokojną głowę.</strong>
+            </h1>
+            <p>
+              Urodziny, wesela i warsztaty. Przywieziemy pomysły, atrakcje i energię —
+              dopasowane do Waszej okazji.
+            </p>
+            <div className="hero-mobile__actions">
+              <Link href="/formularz-rezerwacji" className="hero-mobile__primary-action">
+                Zapytaj o termin i cenę
+                <span aria-hidden="true">↗</span>
+              </Link>
+              <button type="button" className="hero-mobile__secondary-action" aria-haspopup="dialog" aria-controls="occasion-planner" aria-expanded={plannerOpen} onClick={() => setPlannerOpen(true)}>
+                <FontAwesomeIcon icon={faWandMagicSparkles} aria-hidden="true" />
+                Dobierz zabawę do okazji
+              </button>
+            </div>
+            <span className="hero-mobile__reassurance">Bez zobowiązań — porozmawiajmy o Waszej imprezie.</span>
+          </motion.div>
+
+          <Link className="hero-mobile__scroll" href="#aktualnosci" aria-label="Przejdź do aktualności">
+            <span>Odkryj więcej</span>
+            <i aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="hero-mobile-promos">
+          <Link href="tel:+48795103108" className="hero-mobile__offer">
+            <strong>Dopytaj o rabat w październiku</strong>
+            <span>Zadzwoń i zapytaj o szczegóły <span aria-hidden="true">↗</span></span>
+          </Link>
+          <SundayPromo />
+        </div>
+
+        <div className="container hero-premium__grid" id="aktualnosci">
+          <div className="hero-premium__mobile-news-intro">
+            <span>Co nowego w Nallipop</span>
+            <h2>Aktualności i inspiracje</h2>
+          </div>
           <svg
             className="hero-premium__curve"
             viewBox="0 0 1340 650"
@@ -333,46 +552,44 @@ export default function HomePage() {
             <AnimatePresence mode="wait">
               <motion.div
                 className="hero-premium__slide-copy"
-                key={`copy-${activeHeroSlide.id}`}
+                key={`copy-${activeHeroSlide.image}`}
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.42, ease: "easeOut" }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
               >
                 <span className="section-kicker">{activeHeroSlide.kicker}</span>
                 <h1>
-                  {activeHeroSlide.title.map((line) => (
+                  {activeHeroSlide.href ? <Link href={activeHeroSlide.href}>{activeHeroSlide.title.map((line) => <span key={line}>{line}</span>)}</Link> : activeHeroSlide.title.map((line) => (
                     <span key={line}>{line}</span>
                   ))}
                 </h1>
                 <p>{activeHeroSlide.description}</p>
                 <div className="hero-premium__actions">
-                  <Link href="#oferta" className="button button--primary">
-                    <Image
-                      className="hero-premium__button-icon"
-                      src="/images/nallipop-ikony-przyciski/zobacz-oferte-iskierka.png"
-                      alt=""
-                      width={24}
-                      height={24}
-                      aria-hidden="true"
-                    />
-                    Zobacz ofertę
-                  </Link>
-                  <Link href="/formularz-rezerwacji" className="button button--light">
-                    <Image
-                      className="hero-premium__button-icon"
-                      src="/images/nallipop-ikony-przyciski/sprawdz-termin-kalendarz.png"
-                      alt=""
-                      width={24}
-                      height={24}
-                      aria-hidden="true"
-                    />
-                    Rezerwuj termin
-                  </Link>
+                  {heroActions.map((action) => (
+                    <Link
+                      href={action.href}
+                      className={`button button--${action.tone}`}
+                      key={action.href}
+                    >
+                      <span className="hero-premium__button-icon" aria-hidden="true">
+                        <FontAwesomeIcon icon={action.icon} />
+                      </span>
+                      {action.label}
+                    </Link>
+                  ))}
                 </div>
               </motion.div>
             </AnimatePresence>
+            {isSphereSlide && <div className="hero-premium__season-switch" role="group" aria-label="Wybierz klimat kuli na slajdzie">
+              <span>Jedna kula. Dwa światy.</span>
+              <div>{[[false, "Jesień", "🍂"], [true, "Halloween", "👻"]].map(([halloween, label, icon]) => <button type="button" key={label} aria-pressed={sphereHalloween === halloween} onClick={() => { setSphereHalloween(halloween); setHeroPaused(true); }}><span aria-hidden="true">{icon}</span> {label}</button>)}</div>
+            </div>}
+            <SundayPromo desktop />
             <div className="hero-premium__controls" role="group" aria-label="Sterowanie slajdami">
+              <button type="button" onClick={() => setHeroPaused((paused) => !paused)} aria-label={heroPaused ? "Wznów zmianę slajdów" : "Wstrzymaj zmianę slajdów"} aria-pressed={heroPaused}>
+                <span aria-hidden="true">{heroPaused ? "▶" : "Ⅱ"}</span>
+              </button>
               <button
                 type="button"
                 aria-label="Poprzedni slajd"
@@ -403,14 +620,15 @@ export default function HomePage() {
           </motion.div>
 
           <motion.div className="hero-premium__visual" {...fadeUp} transition={{ duration: 0.75, delay: 0.1 }}>
-            <AnimatePresence mode="wait">
+            {activeHeroSlide.href && <Link className="hero-premium__slide-link" href={activeHeroSlide.href} aria-label={`Poznaj pakiet: ${activeHeroSlide.caption}`} />}
+            <AnimatePresence initial={false}>
               <motion.div
-                className="image-fill image-fill--hero"
-                key={activeHeroSlide.id}
+                className={`image-fill image-fill--hero${activeHeroSlide.photoPanel ? " image-fill--photo-panel" : ""}`}
+                key={activeHeroSlide.image}
                 initial={{ opacity: 0, scale: 1.04 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.65, ease: "easeOut" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
               >
                 <Image
                   src={activeHeroSlide.image}
@@ -419,7 +637,7 @@ export default function HomePage() {
                   preload={activeHeroSlideIndex === 0}
                   sizes="(max-width: 1040px) calc(100vw - 84px), 56vw"
                   style={{
-                    objectFit: activeHeroSlide.imageSize === "78% auto" ? "contain" : "cover",
+                    objectFit: "cover",
                     objectPosition: activeHeroSlide.imagePosition || "center",
                   }}
                 />
@@ -467,6 +685,9 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      <NitrogenTeaser />
+      <PhotoboothHomeBanner />
+
       <section className="services section" id="oferta">
         <div className="container">
           <motion.div className="section-heading" {...fadeUp}>
@@ -479,10 +700,10 @@ export default function HomePage() {
                 {service.isNew && <span className="service-card__new">Nowość</span>}
                 <Link
                   className="service-card__button"
-                  href={`/oferta?oferta=${service.id}${service.id === "dmuchance" ? "&dmuchaniec=safari" : ""}#opis-oferty`}
+                  href={service.href || (service.id === "dmuchance" ? "/dmuchance" : `/oferta?oferta=${service.id}#opis-oferty`)}
                   aria-label={`Zobacz szczegóły oferty: ${service.title}`}
                 >
-                  <span className="image-fill" style={{ backgroundImage: `url('${service.image}')` }} />
+                  <span className="image-fill" style={{ backgroundImage: `url('${service.image}')`, backgroundPosition: service.imagePosition || "center" }} />
                 </Link>
                 <div className="service-card__content">
                   <h3>{service.title}</h3>
@@ -509,17 +730,18 @@ export default function HomePage() {
               {inflatableItems.map((inflatable) => (
                 <Link
                   className="inflatable-option"
-                  href={`/oferta?oferta=dmuchance&dmuchaniec=${inflatable.id}#opis-oferty`}
+                  href={`/dmuchance?dmuchaniec=${inflatable.id}#opis-oferty`}
                   key={inflatable.id}
                   aria-label={`Zobacz szczegóły: ${inflatable.name}`}
                 >
-                  <span
-                    className="inflatable-option__image image-fill"
-                    style={{
-                      backgroundImage: `url(${inflatable.image})`,
-                      backgroundPosition: inflatable.imagePosition || "center",
-                    }}
-                  />
+                  <span className="inflatable-option__image">
+                    <Image
+                      src={inflatable.image}
+                      alt={inflatable.name}
+                      fill
+                      sizes="(max-width: 760px) calc(100vw - 64px), 380px"
+                    />
+                  </span>
                   <span className="inflatable-option__status">Dostępny</span>
                   {inflatable.isNew && <span className="inflatable-option__new">Nowość</span>}
                   <span className="inflatable-option__copy">
@@ -567,15 +789,16 @@ export default function HomePage() {
                 {media.type === "video" ? (
                   <span className="gallery__video-placeholder"><b>Film</b></span>
                 ) : (
-                  <Image src={media.src} alt={media.alt} fill sizes="(max-width: 700px) calc(100vw - 28px), 25vw" />
+                  <Image src={media.thumbnail || media.src} alt={media.alt} fill unoptimized={Boolean(media.thumbnail)} sizes="(max-width: 700px) calc(100vw - 28px), 25vw" />
                 )}
                 {media.type === "video" && <i className="gallery__play" aria-hidden="true">▶</i>}
               </button>
             ))}
           </div>
+          <div className="gallery-home-link"><Link href="/galeria" className="button button--light">Zobacz całą galerię →</Link></div>
           {galleryStatus === "loading" && <p className="gallery__status">Ładuję zdjęcia i filmy z galerii...</p>}
-          {galleryStatus === "empty" && <p className="gallery__status">Dodaj multimedia do folderów <strong>gallery/</strong> i <strong>dmuchaniec/</strong> w Firebase Storage.</p>}
-          {galleryStatus === "error" && <p className="gallery__status">Nie udało się pobrać wszystkich multimediów z Firebase. Sprawdź reguły Storage dla folderów <strong>gallery/</strong> i <strong>dmuchaniec/</strong>.</p>}
+          {galleryStatus === "empty" && <p className="gallery__status">Nowe zdjęcia pojawią się tutaj wkrótce.</p>}
+          {galleryStatus === "error" && <p className="gallery__status">Galeria jest chwilowo niedostępna. Spróbuj ponownie za chwilę.</p>}
         </div>
       </section>
 
@@ -590,7 +813,12 @@ export default function HomePage() {
               ‹
             </button>
             <div className="attractions__rail" ref={attractionsRailRef}>
-              {attractions.map(([title, image]) => (
+              {attractions.map(([title, image, href]) => href ? (
+                <Link className="attraction-card" key={title} href={href}>
+                  <Image src={image} alt="" width={240} height={263} sizes="192px" />
+                  <h3>{title} <span aria-hidden="true">→</span></h3>
+                </Link>
+              ) : (
                 <article className="attraction-card" key={title}>
                   <Image src={image} alt="" width={240} height={263} sizes="192px" />
                   <h3>{title}</h3>
@@ -680,6 +908,8 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      <OccasionPlanner open={plannerOpen} onOpenChange={setPlannerOpen} />
 
       {activeMedia && (
         <div className="lightbox" onClick={() => setActiveMedia(null)}>

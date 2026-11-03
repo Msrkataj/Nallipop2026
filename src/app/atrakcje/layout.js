@@ -7,7 +7,7 @@ import {
 import "@/styles/atrakcje.scss";
 
 const description =
-  "Wybierz atrakcje dla dzieci na urodziny i imprezy: eksperymenty, suchy lód, piniaty na zamówienie, zamykanie w bańce, slime, bańki XXL i więcej.";
+  "Atrakcje na imprezy w Warszawie: fotobudka, Strefa malucha 0–3 lata, ciekły azot, glutki, piniaty, bańki XXL, eksperymenty i kreatywne warsztaty dla dzieci.";
 
 export const metadata = createPageMetadata({
   title: "Atrakcje dla dzieci na imprezy i urodziny",
@@ -26,7 +26,7 @@ const schema = [
     name: "Atrakcje dla dzieci Nallipop",
     description,
     path: "/atrakcje",
-    serviceTypes: ["Eksperymenty", "Piniaty na zamówienie", "Zamykanie w bańce mydlanej", "Bańki XXL", "Warsztaty slime", "Malowanie twarzy"],
+    serviceTypes: ["Fotobudka", "Strefa malucha 0–3 lata", "Pokaz ciekłego azotu", "Eksperymenty", "Piniaty na zamówienie", "Zamykanie w bańce mydlanej", "Bańki XXL", "Warsztaty z masą sensoryczną", "Malowanie twarzy"],
   }),
 ];
 

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const DEFAULT_PAGE_ID = "100090355616685";
+const DEFAULT_PAGE_ID = "125592843773888";
 
 export async function GET() {
   const accessToken = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
@@ -24,16 +24,18 @@ export async function GET() {
     "created_time",
     "permalink_url",
     "full_picture",
-    "attachments{media_type,media,target,url,title,description}",
+    "attachments{media_type,type,media,description,subattachments{media,media_type}}",
   ].join(",");
 
   const url = new URL(`https://graph.facebook.com/${apiVersion}/${pageId}/posts`);
   url.searchParams.set("fields", fields);
-  url.searchParams.set("limit", "3");
-  url.searchParams.set("access_token", accessToken);
+  // Some recent Facebook entries have no message (for example cover photo updates).
+  // Fetch more so the three cards can contain actual post text.
+  url.searchParams.set("limit", "25");
 
   try {
     const response = await fetch(url, {
+      headers: { Authorization: `Bearer ${accessToken}` },
       next: { revalidate: 900 },
     });
     const data = await response.json();
@@ -55,14 +57,17 @@ export async function GET() {
       );
     }
 
-    const posts = (data.data || []).slice(0, 3).map((post) => ({
+    const posts = (data.data || [])
+      .filter((post) => typeof post.message === "string" && post.message.trim())
+      .slice(0, 3)
+      .map((post) => ({
       id: post.id,
-      message: post.message || post.attachments?.data?.[0]?.description || "Zobacz naszą najnowszą publikację na Facebooku.",
+      message: post.message.trim(),
       createdTime: post.created_time,
       permalinkUrl: post.permalink_url,
-      picture: post.full_picture || post.attachments?.data?.[0]?.media?.image?.src || null,
+      picture: post.full_picture || post.attachments?.data?.flatMap((attachment) => [attachment, ...(attachment.subattachments?.data || [])]).find((attachment) => attachment.media?.image?.src)?.media.image.src || null,
       mediaType: post.attachments?.data?.[0]?.media_type || "photo",
-    }));
+      }));
 
     return NextResponse.json(
       { configured: true, posts },
@@ -72,8 +77,8 @@ export async function GET() {
         },
       }
     );
-  } catch (error) {
-    console.error("Facebook posts request failed", error);
+  } catch {
+    console.error("Facebook posts request failed");
     return NextResponse.json(
       {
         configured: true,

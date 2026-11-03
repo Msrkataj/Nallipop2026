@@ -6,6 +6,7 @@ import { useConsent } from "@/components/ConsentProvider";
 
 function CookieSettingsPanel({ consent, acceptAll, rejectOptional, savePreferences, closeSettings }) {
   const [analytics, setAnalytics] = useState(Boolean(consent?.analytics));
+  const [marketing, setMarketing] = useState(Boolean(consent?.marketing));
   const [social, setSocial] = useState(Boolean(consent?.social));
 
   return (
@@ -34,6 +35,11 @@ function CookieSettingsPanel({ consent, acceptAll, rejectOptional, savePreferenc
             <span className="cookie-switch" aria-hidden="true" />
           </label>
           <label className="cookie-option">
+            <div><strong>Reklamowe</strong><p>Pozwalają mierzyć skuteczność kampanii Google Ads.</p></div>
+            <input type="checkbox" checked={marketing} onChange={(event) => setMarketing(event.target.checked)} />
+            <span className="cookie-switch" aria-hidden="true" />
+          </label>
+          <label className="cookie-option">
             <div><strong>Treści społecznościowe</strong><p>Pozwalają pobrać najnowsze wpisy z Facebooka.</p></div>
             <input type="checkbox" checked={social} onChange={(event) => setSocial(event.target.checked)} />
             <span className="cookie-switch" aria-hidden="true" />
@@ -41,7 +47,7 @@ function CookieSettingsPanel({ consent, acceptAll, rejectOptional, savePreferenc
         </div>
 
         <div className="cookie-settings__actions">
-          <button type="button" onClick={() => savePreferences({ analytics, social })}>Zapisz mój wybór</button>
+          <button type="button" onClick={() => savePreferences({ analytics, marketing, social })}>Zapisz mój wybór</button>
           <button type="button" onClick={rejectOptional}>Odrzuć opcjonalne</button>
           <button type="button" onClick={acceptAll}>Akceptuj wszystkie</button>
         </div>
@@ -65,7 +71,7 @@ export default function CookieConsent() {
             <span>Prywatność po Twojej stronie</span>
             <h2 id="cookie-title">Ty wybierasz, które cookies włączamy</h2>
             <p>
-              Niezbędne technologie obsługują stronę. Analitykę i treści z Facebooka
+              Niezbędne technologie obsługują stronę. Analitykę, pomiar reklam i treści z Facebooka
               uruchomimy dopiero po Twojej zgodzie. Więcej w{" "}
               <Link href="/polityka-prywatnosci">Polityce prywatności i cookies</Link>.
             </p>

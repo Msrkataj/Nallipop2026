@@ -155,6 +155,8 @@
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 22px 55px rgba(48, 55, 110, 0.11);
 
+  &--text-only { grid-template-columns: 1fr; }
+
   &__media {
     min-height: 100%;
     display: grid;

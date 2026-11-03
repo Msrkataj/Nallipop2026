@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import BrandLogo from "@/components/BrandLogo";
 import PageDecorations from "@/components/PageDecorations";
+import FormSuccess from "@/components/FormSuccess";
+import { reportContactFormConversion } from "@/lib/google-ads";
 
 const contactItems = [
   {
@@ -46,6 +48,7 @@ export default function KontaktPage() {
 
   async function handleSubmit(event) {
     event.preventDefault();
+    if (status === "sending" || status === "success") return;
     const formElement = event.currentTarget;
     const data = Object.fromEntries(new FormData(formElement).entries());
 
@@ -65,8 +68,8 @@ export default function KontaktPage() {
       }
 
       formElement.reset();
+      reportContactFormConversion();
       setStatus("success");
-      setMessage("Odezwiemy się najszybciej, jak to możliwe.");
     } catch (error) {
       setStatus("error");
       setMessage(error.message);
@@ -124,7 +127,12 @@ export default function KontaktPage() {
           </div>
         </div>
 
-        <form className="contact-form" id="formularz" onSubmit={handleSubmit}>
+        {status === "success" ? (
+          <div className="contact-form" id="formularz">
+            <FormSuccess />
+          </div>
+        ) : (
+        <form className="contact-form" id="formularz" onSubmit={handleSubmit} aria-busy={status === "sending"}>
           <div className="contact-section-title">
             <span className="contact-section-number is-purple">02</span>
             <div>
@@ -154,6 +162,10 @@ export default function KontaktPage() {
                 <option>Wesele lub uroczystość rodzinna</option>
                 <option>Festyn, piknik lub event</option>
                 <option>Warsztaty dla dzieci</option>
+                <option>Animacje i warsztaty w kuli</option>
+                <option>Wizyta Świętego Mikołaja</option>
+                <option>Wizyta Świętego Mikołaja i elfa</option>
+                <option>Warsztaty świąteczne z Elfem</option>
                 <option>Inne pytanie</option>
               </select>
             </label>
@@ -174,13 +186,14 @@ export default function KontaktPage() {
           </button>
           <p className="contact-form__note">Administratorem danych jest KamaLogic Kamil Tosnowiec, ul. Nadrzeczna 7, 05-840 Krosna-Parcela, NIP 5342671266. Dane wykorzystamy, aby odpowiedzieć na zapytanie i przygotować ofertę. Podanie danych kontaktowych jest dobrowolne, ale konieczne do udzielenia odpowiedzi. Szczegóły znajdziesz w <Link href="/polityka-prywatnosci">Polityce prywatności</Link>.</p>
 
-          {message && (
-            <div className={`contact-form__message is-${status}`} role="status">
-              <strong>{status === "success" ? "Dziękujemy za wiadomość!" : "Nie udało się wysłać"}</strong>
+          {status === "error" && message && (
+            <div className="contact-form__message is-error" role="alert">
+              <strong>Nie udało się wysłać</strong>
               <span>{message}</span>
             </div>
           )}
         </form>
+        )}
       </section>
 
       <section className="contact-area" id="obszar">

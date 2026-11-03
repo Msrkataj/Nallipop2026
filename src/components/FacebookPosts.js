@@ -124,7 +124,7 @@ export default function FacebookPosts() {
           <>
             <div className="facebook-posts__rail" ref={railRef}>
               {posts.map((post) => (
-                <article className="facebook-post-card" key={post.id}>
+                <article className={`facebook-post-card${post.picture ? "" : " facebook-post-card--text-only"}`} key={post.id}>
                   {post.picture && (
                     <div
                       className="facebook-post-card__media"
