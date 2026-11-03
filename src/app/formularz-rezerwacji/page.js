@@ -6,6 +6,7 @@ import PageDecorations from "@/components/PageDecorations";
 import AttractionPicker from "@/components/AttractionPicker";
 import AutumnPackageBanner from "@/components/AutumnPackageBanner";
 import FormSuccess from "@/components/FormSuccess";
+import inspirationStyles from "@/components/InspirationContact.module.scss";
 import { paidAttractions } from "@/data/reservation-attractions";
 import { getSeasonalPackage } from "@/data/seasonal-packages";
 import { photoboothScenes, photoboothPricing } from "@/data/photobooth";
@@ -57,7 +58,17 @@ export default function FormularzRezerwacjiPage() {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [coupon, setCoupon] = useState(null);
   const availableHours = form.paidAttractions.includes("Fotobudka") ? ["1 godzina", ...hoursOptions] : hoursOptions;
+
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/inspiration?coupon=1", { cache: "no-store", signal: controller.signal })
+      .then(response => response.ok ? response.json() : null)
+      .then(result => { if (result?.coupon) setCoupon(result.coupon); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -192,6 +203,11 @@ export default function FormularzRezerwacjiPage() {
         </div>
       ) : (
       <form id="formularz" className="form-card" onSubmit={submitForm} aria-busy={status === "sending"}>
+        {coupon && <div className={inspirationStyles.coupon} role="status">
+          <strong>✦ Twój kupon −10% na animacje</strong>
+          <span>{coupon.code}</span>
+          <small>Kupon jest zapisany i zostanie dołączony do tego zapytania.</small>
+        </div>}
         <section className="form-section">
           <div className="section-heading">
             <span className="section-icon">01</span>

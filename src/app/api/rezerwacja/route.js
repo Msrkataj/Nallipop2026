@@ -2,6 +2,8 @@ import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
 import { validateEventDetails } from "@/lib/reservation-validation";
 import { formatSeasonalPackage } from "@/data/seasonal-packages";
+import { currentInspirationCoupon } from "@/lib/inspiration-session";
+import { couponEmailText } from "@/lib/inspiration-draw.mjs";
 
 const requiredFields = [
   "name",
@@ -92,6 +94,7 @@ function formatTextEmail(data) {
     `${labels.seasonalPackage}: ${formatSeasonalPackage(data.seasonalPackage)}`,
     `${labels.paidAttractions}: ${data.paidAttractions.length ? data.paidAttractions.join(", ") : "Brak"}`,
     `${labels.notes}: ${data.notes}`,
+    ...(data.coupon ? [`Zweryfikowany kupon: ${data.coupon}`] : []),
     `Potwierdzenie Regulaminu i Polityki prywatności: Tak (${data.legalAcceptedAt})`,
   ].join("\n");
 }
@@ -111,6 +114,7 @@ function formatHtmlEmail(data) {
     [labels.seasonalPackage]: formatSeasonalPackage(data.seasonalPackage),
     [labels.paidAttractions]: data.paidAttractions.length ? data.paidAttractions.join(", ") : "Brak",
     [labels.notes]: data.notes,
+    ...(data.coupon ? { "Zweryfikowany kupon": data.coupon } : {}),
     ["Potwierdzenie Regulaminu i Polityki prywatności"]: `Tak (${data.legalAcceptedAt})`,
   });
 
@@ -150,6 +154,9 @@ export async function POST(request) {
     if (!smtpUser || !smtpPass) {
       return NextResponse.json({ message: "Brakuje konfiguracji wysylki email." }, { status: 500 });
     }
+
+    // Only the award saved on the server can be included in the reservation.
+    formData.coupon = couponEmailText(await currentInspirationCoupon());
 
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",

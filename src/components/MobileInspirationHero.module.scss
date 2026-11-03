@@ -9,8 +9,8 @@
   .lead { max-width: 345px; margin: 0 auto; font-size: 12px; line-height: 1.6; color: #c4b9d1; }
   .stage { position: relative; height: 222px; margin: 5px -20px 0; }
   .disc { position: absolute; width: 240px; height: 205px; border-radius: 50%; background: linear-gradient(140deg, #493251, #392b4e 58%, #2c3c44); left: 50%; top: 18px; transform: translateX(-50%) rotate(-15deg); }
-  .sparkOne, .sparkTwo { position: absolute; z-index: 3; font-size: 39px; line-height: 1; color: #f0b83d; left: 8%; top: 41px; transform: rotate(12deg); }
-  .sparkTwo { color: #b196e1; left: auto; right: 6%; top: 157px; font-size: 32px; }
+  .sparkOne, .sparkTwo { position: absolute; z-index: 3; font-size: 39px; line-height: 1; color: #f0b83d; left: 8%; top: 41px; transform: rotate(12deg); animation: starFloat 6s ease-in-out infinite; }
+  .sparkTwo { color: #b196e1; left: auto; right: 6%; top: 157px; font-size: 32px; animation-duration: 7s; animation-delay: -3s; }
   .collage { position: absolute; inset: 0; }
   .frontPhoto, .backPhoto { position: absolute; padding: 6px 6px 0; background: #fff; color: #30204c; border-radius: 13px; box-shadow: 0 12px 30px #5e426d25; overflow: hidden; }
   .frontPhoto { width: 54%; max-width: 238px; left: 35%; top: 39px; transform: rotate(9deg); z-index: 2; }
@@ -22,14 +22,15 @@
   .sticker b { font-size: 15px; }
   .moods { display: grid; grid-template-columns: 1fr 1fr 1fr 1.25fr; gap: 6px; }
   .moods button { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; min-height: 65px; padding: 8px 3px; border-radius: 15px; border: 1px solid #453750; background: #211b30; color: #faf5ff; font: inherit; font-size: 11px; font-weight: 750; cursor: pointer; transition: transform .2s, background .2s; box-shadow: 0 3px 9px #6b418d07; }
-  .moods button > span { font-size: 23px; line-height: 1; color: #b282d5; }
-  .moods button:nth-child(2) > span { color: #e99a9c; }
-  .moods button:nth-child(3) > span { color: #40b6b2; }
+  .moods button > span { font-size: 23px; line-height: 1; color: #b282d5; animation: symbolSway 5s ease-in-out infinite; }
+  .moods button:nth-child(2) > span { color: #e99a9c; animation-duration: 6s; animation-delay: -2s; }
+  .moods button:nth-child(3) > span { color: #40b6b2; animation-duration: 5.5s; animation-delay: -3.5s; }
   .moods button[aria-pressed="true"] { border-color: #c6a2ff; background: #392b4e; transform: translateY(-3px); }
   .moods .surprise { background: #bc99f5; border-color: #bc99f5; color: #231137; }
-  .moods .surprise > span { color: #593475; }
+  .moods .surprise > span { color: #593475; animation-duration: 6.5s; animation-delay: -1s; }
   .moods .surprise[aria-pressed="true"] { background: #c6a2ff; }
   .moods button:disabled { cursor: wait; opacity: .65; transform: none; }
+  .moods button:disabled > span { animation-play-state: paused; }
   .result { min-height: 78px; padding: 13px 3px 5px; display: flex; flex-direction: column; justify-content: center; }
   .result strong, .result h2 { font-size: 18px; font-weight: 800; line-height: 1.3; margin: 0; }
   .result p { font-size: 12px; line-height: 1.5; color: #c4b9d1; margin: 5px auto 0; max-width: 330px; }
@@ -66,4 +67,15 @@
   .prizeArt small { font-size: 12px; }
   .hero button:focus-visible, .hero a:focus-visible { outline: 3px solid #75e3d5; outline-offset: 4px; }
 }
-@media (prefers-reduced-motion: reduce) { .moods button { transition: none; } }
+@keyframes starFloat {
+  0%, 100% { transform: translateY(0) rotate(8deg); }
+  50% { transform: translateY(-6px) rotate(18deg); }
+}
+@keyframes symbolSway {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-3px) rotate(4deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .moods button { transition: none; }
+  .sparkOne, .sparkTwo, .moods button > span { animation: none; }
+}
