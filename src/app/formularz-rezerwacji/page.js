@@ -10,6 +10,7 @@ import inspirationStyles from "@/components/InspirationContact.module.scss";
 import { paidAttractions } from "@/data/reservation-attractions";
 import { getSeasonalPackage } from "@/data/seasonal-packages";
 import { photoboothScenes, photoboothPricing } from "@/data/photobooth";
+import { inspirationIdeas } from "@/data/inspiration-ideas.mjs";
 import { reportContactFormConversion } from "@/lib/google-ads";
 import { getWarsawDate, validateEventDetails } from "@/lib/reservation-validation";
 
@@ -72,6 +73,11 @@ export default function FormularzRezerwacjiPage() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
+    const inspiration = inspirationIdeas.find(idea => idea.id === searchParams.get("pomysl"));
+    if (inspiration) {
+      const notePrefix = searchParams.get("losowanie") === "1" ? "Wylosowana atrakcja" : "Wybrana atrakcja";
+      setForm(current => ({ ...current, notes: current.notes || `${notePrefix}: ${inspiration.title}.` }));
+    }
     const selectedAttraction = searchParams.get("atrakcja");
     const selectedModel = searchParams.get("model");
     const selectedOffer = searchParams.get("oferta");

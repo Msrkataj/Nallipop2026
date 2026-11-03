@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { access } from 'node:fs/promises';
 import { warsawDay, drawStatus, nextDraw, claimDraw, couponEmailText } from '../src/lib/inspiration-draw.mjs';
-import { inspirationIdeas, couponIdea, inspirationContactHref, findInspiration } from '../src/data/inspiration-ideas.mjs';
+import { inspirationIdeas, couponIdea, inspirationReservationHref, findInspiration } from '../src/data/inspiration-ideas.mjs';
 const now = new Date('2026-11-03T12:00:00Z');
 const initial = () => ({ _id: 'visitor', revision: 0, date: '2026-11-03', used: 0, coupon: null, recentDraws: [] });
 const lose = max => max === 10000 ? 500 : 0;
@@ -78,14 +78,16 @@ test('retries, including concurrent duplicates, do not consume more attempts', a
   assert.equal(retried.drawnId, results[0].drawnId);
 });
 
-test('all 21 ideas have local photos and safe links to the existing contact form', async () => {
+test('all 21 ideas have local photos and safe links to the reservation form', async () => {
   assert.equal(inspirationIdeas.length, 21);
   assert.equal(new Set(inspirationIdeas.map(idea => idea.id)).size, 21);
   for (const idea of inspirationIdeas) {
     await access(new URL(`../public${idea.image}`, import.meta.url));
-    assert.equal(inspirationContactHref(idea.id), `/kontakt?pomysl=${idea.id}#formularz`);
+    assert.equal(inspirationReservationHref(idea.id), `/formularz-rezerwacji?pomysl=${idea.id}#formularz`);
+    assert.equal(inspirationReservationHref(idea.id, true), `/formularz-rezerwacji?pomysl=${idea.id}&losowanie=1#formularz`);
   }
   assert.equal(findInspiration('idea-santa-globe').image, '/images/kula/mikolajowa.webp');
-  assert.equal(inspirationContactHref('https://example.com'), '/kontakt#formularz');
+  assert.equal(inspirationReservationHref('https://example.com'), '/formularz-rezerwacji#formularz');
+  assert.equal(inspirationReservationHref(couponIdea.id, true), '/formularz-rezerwacji#formularz');
   assert.equal(findInspiration('<script>'), null);
 });

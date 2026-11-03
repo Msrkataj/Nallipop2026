@@ -176,6 +176,7 @@ export function findInspiration(id) {
   return inspirationIdeas.find(idea => idea.id === id) || null;
 }
 
-export function inspirationContactHref(id) {
-  return findInspiration(id) ? `/kontakt?pomysl=${encodeURIComponent(id)}#formularz` : "/kontakt#formularz";
+export function inspirationReservationHref(id, drawn = false) {
+  const idea = inspirationIdeas.find(idea => idea.id === id);
+  return idea ? `/formularz-rezerwacji?pomysl=${encodeURIComponent(idea.id)}${drawn ? "&losowanie=1" : ""}#formularz` : "/formularz-rezerwacji#formularz";
 }

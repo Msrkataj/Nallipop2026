@@ -462,7 +462,7 @@ export default function HomePage() {
 
         <div className="hero-mobile-promos">
           <Link href="tel:+48795103108" className="hero-mobile__offer">
-            <strong>Dopytaj o rabat w październiku</strong>
+            <strong>Dopytaj o rabat w listopadzie</strong>
             <span>Zadzwoń i zapytaj o szczegóły <span aria-hidden="true">↗</span></span>
           </Link>
           <SundayPromo />

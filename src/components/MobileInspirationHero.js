@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { inspirationIdeas, couponIdea } from "@/data/inspiration-ideas.mjs";
+import { inspirationIdeas, couponIdea, inspirationReservationHref } from "@/data/inspiration-ideas.mjs";
 import { inspirationPhotos } from "@/data/inspiration-photos";
 import styles from "./MobileInspirationHero.module.scss";
 
@@ -219,10 +219,10 @@ export default function MobileInspirationHero() {
     </div>
     <p className={styles.allowance}>{unavailable ? "Kupony chwilowo niedostępne. Pomysły losujesz dalej!" : draw ? draw.remaining ? <>Próby na kupon −10% na dziś: <b>{draw.remaining} z 3</b></> : <>Próby na kupon: <b>0 z 3.</b> Nowe jutro!<small>Pomysły na atrakcje losujesz dalej bez limitu.</small></> : "Sprawdzamy Twoje dzisiejsze próby…"}</p>
     {draw?.coupon && <div className={styles.savedCoupon}><span aria-hidden="true">✦</span><div><strong>Twój kupon −10% na animacje jest zapisany!</strong><small>Dołączymy go do zapytania w formularzu.</small></div></div>}
-    <Link className={styles.cta} href="/formularz-rezerwacji#formularz" aria-disabled={busy} tabIndex={busy ? -1 : undefined} onClick={event => { if (busy) event.preventDefault(); }}>{selected ? "Zapytaj o ten pomysł" : "Zapytaj o termin i cenę"}<span aria-hidden="true">↗</span></Link>
+    <Link className={styles.cta} href={inspirationReservationHref(selected?.id, mood === "surprise")} aria-disabled={busy} tabIndex={busy ? -1 : undefined} onClick={event => { if (busy) event.preventDefault(); }}>{selected ? "Zapytaj o ten pomysł" : "Zapytaj o termin i cenę"}<span aria-hidden="true">↗</span></Link>
     <p className={styles.reassurance}>Bez zobowiązań. Wspólnie dopasujemy atrakcje do Was.</p>
     <button type="button" className={styles.showIdeas} aria-expanded={expanded} aria-controls="inspiration-list" onClick={() => setExpanded(!expanded)}>{expanded ? "Zwiń pomysły" : `Zobacz ${inspirationIdeas.length} pomysłów w losowaniu`} <span aria-hidden="true">{expanded ? "−" : "+"}</span></button>
-    {expanded && <ul id="inspiration-list" className={styles.ideaList}>{inspirationIdeas.map(idea => <li key={idea.id}><Link href="/formularz-rezerwacji#formularz"><Photo idea={idea} sizes="62px" /><span>{idea.title}</span><span aria-hidden="true">↗</span></Link></li>)}</ul>}
+    {expanded && <ul id="inspiration-list" className={styles.ideaList}>{inspirationIdeas.map(idea => <li key={idea.id}><Link href={inspirationReservationHref(idea.id)}><Photo idea={idea} sizes="62px" /><span>{idea.title}</span><span aria-hidden="true">↗</span></Link></li>)}</ul>}
     <p className={styles.more}>To dopiero początek. <Link href="/oferta">Poznaj całą ofertę <span aria-hidden="true">→</span></Link></p>
   </div>;
 }
