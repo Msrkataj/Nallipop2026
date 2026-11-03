@@ -25,7 +25,7 @@ export const inspirationIdeas = [
   },
   {
     "id": "idea-4",
-    "title": "Glutki / slime",
+    "title": "Glutki",
     "category": "Warsztaty",
     "short": "Mieszamy, ugniatamy i rozciągamy własny glutek.",
     "position": "center",
