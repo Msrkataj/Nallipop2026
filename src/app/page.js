@@ -16,6 +16,7 @@ import SundayPromo from "@/components/SundayPromo";
 import BrandLogo from "@/components/BrandLogo";
 import PageDecorations from "@/components/PageDecorations";
 import OccasionPlanner from "@/components/OccasionPlanner";
+import MobileInspirationHero from "@/components/MobileInspirationHero";
 import NitrogenTeaser from "@/components/NitrogenTeaser";
 import PhotoboothHomeBanner from "@/components/PhotoboothHomeBanner";
 import { reportContactFormConversion } from "@/lib/google-ads";
@@ -457,75 +458,7 @@ export default function HomePage() {
     <main className="home decorated-page">
       <PageDecorations variant="home" />
       <section className="hero-premium" id="start">
-        <div className="hero-mobile">
-          <video
-            className="hero-mobile__video"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/images/hero-kids.webp"
-            aria-hidden="true"
-            tabIndex={-1}
-            disablePictureInPicture
-          >
-            <source src="/main_video.mp4" type="video/mp4" media="(max-width: 700px)" />
-          </video>
-
-          <div className="hero-mobile__veil" aria-hidden="true" />
-          <div className="hero-mobile__glow hero-mobile__glow--one" aria-hidden="true" />
-          <div className="hero-mobile__glow hero-mobile__glow--two" aria-hidden="true" />
-
-          <motion.div
-            className="hero-mobile__topline"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.15, ease: "easeOut" }}
-          >
-            <span className="hero-mobile__brand-pill">
-              <span className="hero-mobile__brand-spark" aria-hidden="true">✦</span>
-              Nallipop moments
-            </span>
-            <span className="hero-mobile__location">Warszawa i okolice</span>
-          </motion.div>
-
-          <motion.div
-            className="hero-mobile__content"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.72, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span className="hero-mobile__kicker">
-              <span aria-hidden="true" />
-              Animacje dla dzieci z dojazdem
-            </span>
-            <h1>
-              Dzieci mają frajdę.
-              <strong>Ty spokojną głowę.</strong>
-            </h1>
-            <p>
-              Urodziny, wesela i warsztaty. Przywieziemy pomysły, atrakcje i energię —
-              dopasowane do Waszej okazji.
-            </p>
-            <div className="hero-mobile__actions">
-              <Link href="/formularz-rezerwacji" className="hero-mobile__primary-action">
-                Zapytaj o termin i cenę
-                <span aria-hidden="true">↗</span>
-              </Link>
-              <button type="button" className="hero-mobile__secondary-action" aria-haspopup="dialog" aria-controls="occasion-planner" aria-expanded={plannerOpen} onClick={() => setPlannerOpen(true)}>
-                <FontAwesomeIcon icon={faWandMagicSparkles} aria-hidden="true" />
-                Dobierz zabawę do okazji
-              </button>
-            </div>
-            <span className="hero-mobile__reassurance">Bez zobowiązań — porozmawiajmy o Waszej imprezie.</span>
-          </motion.div>
-
-          <Link className="hero-mobile__scroll" href="#aktualnosci" aria-label="Przejdź do aktualności">
-            <span>Odkryj więcej</span>
-            <i aria-hidden="true" />
-          </Link>
-        </div>
+        <MobileInspirationHero />
 
         <div className="hero-mobile-promos">
           <Link href="tel:+48795103108" className="hero-mobile__offer">
@@ -909,7 +842,7 @@ export default function HomePage() {
         </div>
       </footer>
 
-      <OccasionPlanner open={plannerOpen} onOpenChange={setPlannerOpen} />
+      <OccasionPlanner hideDockWhileVisible="mobile-inspiration" open={plannerOpen} onOpenChange={setPlannerOpen} />
 
       {activeMedia && (
         <div className="lightbox" onClick={() => setActiveMedia(null)}>

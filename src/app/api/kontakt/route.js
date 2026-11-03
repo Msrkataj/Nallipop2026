@@ -1,5 +1,8 @@
 import nodemailer from "nodemailer";
 import { NextResponse } from "next/server";
+import { currentInspirationCoupon } from "@/lib/inspiration-session";
+import { couponEmailText } from "@/lib/inspiration-draw.mjs";
+import { findInspiration } from "@/data/inspiration-ideas.mjs";
 
 function clean(value) {
   return typeof value === "string" ? value.trim() : "";
@@ -46,6 +49,9 @@ export async function POST(request) {
       return NextResponse.json({ message: "Brakuje konfiguracji wysyłki e-mail." }, { status: 500 });
     }
 
+    // The cookie identifies the server's award; submitted coupon fields are never trusted.
+    const coupon = couponEmailText(await currentInspirationCoupon());
+    const inspiration = findInspiration(clean(body.inspirationId));
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -68,6 +74,8 @@ export async function POST(request) {
         `Telefon: ${data.phone}`,
         `E-mail: ${data.email}`,
         `Temat: ${data.topic}`,
+        ...(inspiration ? [`Wybrany pomysł: ${inspiration.title}`] : []),
+        ...(coupon ? [`Zweryfikowany kupon: ${coupon}`] : []),
         `Potwierdzenie Regulaminu i Polityki prywatności: Tak (${acceptedAt})`,
         "",
         data.message,
@@ -79,6 +87,8 @@ export async function POST(request) {
           <p><strong>Telefon:</strong> ${safe.phone}</p>
           <p><strong>E-mail:</strong> ${safe.email}</p>
           <p><strong>Temat:</strong> ${safe.topic}</p>
+          ${inspiration ? `<p><strong>Wybrany pomysł:</strong> ${escapeHtml(inspiration.title)}</p>` : ""}
+          ${coupon ? `<p><strong>Zweryfikowany kupon:</strong> ${escapeHtml(coupon)}</p>` : ""}
           <p><strong>Potwierdzenie Regulaminu i Polityki prywatności:</strong> Tak (${acceptedAt})</p>
           <p><strong>Wiadomość:</strong><br>${safe.message.replaceAll("\n", "<br>")}</p>
         </div>

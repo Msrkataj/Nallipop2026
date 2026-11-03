@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,8 @@ import {
 import BrandLogo from "@/components/BrandLogo";
 import PageDecorations from "@/components/PageDecorations";
 import FormSuccess from "@/components/FormSuccess";
+import { findInspiration } from "@/data/inspiration-ideas.mjs";
+import inspirationStyles from "@/components/InspirationContact.module.scss";
 import { reportContactFormConversion } from "@/lib/google-ads";
 
 const contactItems = [
@@ -45,6 +47,26 @@ const contactItems = [
 export default function KontaktPage() {
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [inspiration, setInspiration] = useState(null);
+  const [coupon, setCoupon] = useState(null);
+  const [topic, setTopic] = useState("");
+  const [inquiry, setInquiry] = useState("");
+
+  useEffect(() => {
+    const idea = findInspiration(new URLSearchParams(window.location.search).get("pomysl"));
+    if (idea) {
+      setInspiration(idea);
+      setInquiry(`Interesuje mnie: ${idea.title}. Proszę o dostępność i wycenę.\n\nTermin wydarzenia: \nMiejsce: \nLiczba i wiek uczestników: `);
+      setTopic(idea.id === "idea-santa-globe" ? "Animacje i warsztaty w kuli" : idea.category === "Warsztaty" ? "Warsztaty dla dzieci" : "Inne pytanie");
+    }
+    const controller = new AbortController();
+    fetch("/api/inspiration?coupon=1", { cache: "no-store", signal: controller.signal })
+      .then(response => response.ok ? response.json() : null)
+      .then(result => { if (result?.coupon) setCoupon(result.coupon); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -141,6 +163,16 @@ export default function KontaktPage() {
             </div>
           </div>
 
+          {inspiration && <div className={inspirationStyles.idea}>
+            <span>Twój pomysł z Nallipop</span>
+            <strong>{inspiration.title}</strong>
+            <input type="hidden" name="inspirationId" value={inspiration.id} />
+          </div>}
+          {coupon && <div className={inspirationStyles.coupon} role="status">
+            <strong>✦ Twój kupon −10% na animacje</strong>
+            <span>{coupon.code}</span>
+            <small>Kupon jest zapisany i zostanie dołączony do tej wiadomości.</small>
+          </div>}
           <div className="contact-form__grid">
             <label>
               <span>Imię i nazwisko *</span>
@@ -156,7 +188,7 @@ export default function KontaktPage() {
             </label>
             <label className="is-wide">
               <span>W czym możemy pomóc? *</span>
-              <select name="topic" defaultValue="" required>
+              <select name="topic" value={topic} onChange={event => setTopic(event.target.value)} required>
                 <option value="" disabled>Wybierz temat wiadomości</option>
                 <option>Animacje na urodziny</option>
                 <option>Wesele lub uroczystość rodzinna</option>
@@ -171,7 +203,7 @@ export default function KontaktPage() {
             </label>
             <label className="is-wide">
               <span>Wiadomość *</span>
-              <textarea name="message" rows="5" placeholder="Opowiedz krótko o wydarzeniu, liczbie dzieci i planowanym terminie…" required />
+              <textarea name="message" value={inquiry} onChange={event => setInquiry(event.target.value)} rows="5" placeholder="Opowiedz krótko o wydarzeniu, liczbie dzieci i planowanym terminie…" required />
             </label>
           </div>
 
