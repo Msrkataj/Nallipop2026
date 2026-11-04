@@ -40,8 +40,16 @@ const occasions = [
   },
 ];
 
-export default function OccasionPlanner({ open, onOpenChange }) {
+export default function OccasionPlanner({ open, onOpenChange, hideDockWhileVisible }) {
   const [selected, setSelected] = useState(null);
+  const [heroVisible, setHeroVisible] = useState(Boolean(hideDockWhileVisible));
+  useEffect(() => {
+    const hero = hideDockWhileVisible && document.getElementById(hideDockWhileVisible);
+    if (!hero) return;
+    const observer = new IntersectionObserver(([entry]) => setHeroVisible(entry.isIntersecting));
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, [hideDockWhileVisible]);
   const dialogRef = useRef(null);
   const { consent, isReady, isSettingsOpen } = useConsent();
   const occasion = occasions.find((item) => item.id === selected);
@@ -79,7 +87,7 @@ export default function OccasionPlanner({ open, onOpenChange }) {
 
   return (
     <>
-      <div className="occasion-dock" hidden={!isReady || !consent || isSettingsOpen}>
+      <div className="occasion-dock" hidden={heroVisible || !isReady || !consent || isSettingsOpen}>
         <button type="button" className="occasion-dock__open" aria-haspopup="dialog" aria-controls="occasion-planner" aria-expanded={open} onClick={() => onOpenChange(true)}>
           <span className="occasion-dock__icon"><FontAwesomeIcon icon={faWandMagicSparkles} aria-hidden="true" /></span>
           <span><strong>Wywołaj dziecięce wow!</strong><small>Wybierz okazję i odkryj pomysły</small></span>

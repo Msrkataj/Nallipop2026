@@ -6,9 +6,11 @@ import PageDecorations from "@/components/PageDecorations";
 import AttractionPicker from "@/components/AttractionPicker";
 import AutumnPackageBanner from "@/components/AutumnPackageBanner";
 import FormSuccess from "@/components/FormSuccess";
+import inspirationStyles from "@/components/InspirationContact.module.scss";
 import { paidAttractions } from "@/data/reservation-attractions";
 import { getSeasonalPackage } from "@/data/seasonal-packages";
 import { photoboothScenes, photoboothPricing } from "@/data/photobooth";
+import { inspirationIdeas } from "@/data/inspiration-ideas.mjs";
 import { reportContactFormConversion } from "@/lib/google-ads";
 import { getWarsawDate, validateEventDetails } from "@/lib/reservation-validation";
 
@@ -57,10 +59,25 @@ export default function FormularzRezerwacjiPage() {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState("idle");
   const [message, setMessage] = useState("");
+  const [coupon, setCoupon] = useState(null);
   const availableHours = form.paidAttractions.includes("Fotobudka") ? ["1 godzina", ...hoursOptions] : hoursOptions;
 
   useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/inspiration?coupon=1", { cache: "no-store", signal: controller.signal })
+      .then(response => response.ok ? response.json() : null)
+      .then(result => { if (result?.coupon) setCoupon(result.coupon); })
+      .catch(() => {});
+    return () => controller.abort();
+  }, []);
+
+  useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
+    const inspiration = inspirationIdeas.find(idea => idea.id === searchParams.get("pomysl"));
+    if (inspiration) {
+      const notePrefix = searchParams.get("losowanie") === "1" ? "Wylosowana atrakcja" : "Wybrana atrakcja";
+      setForm(current => ({ ...current, notes: current.notes || `${notePrefix}: ${inspiration.title}.` }));
+    }
     const selectedAttraction = searchParams.get("atrakcja");
     const selectedModel = searchParams.get("model");
     const selectedOffer = searchParams.get("oferta");
@@ -98,7 +115,7 @@ export default function FormularzRezerwacjiPage() {
         ? photoboothPricing.packages.find((item) => String(item.hours) === searchParams.get("czas-fotobudki"))
         : null;
       const packageNote = photoPackage
-        ? ` Czas działania fotobudki: ${photoPackage.label}. Cena: ${photoPackage.price} zł brutto. ${photoboothPricing.transportNote}`
+        ? ` Czas działania fotobudki: ${photoPackage.label}. Cena: ${photoPackage.price} zł. ${photoboothPricing.transportNote}`
         : "";
 
       setForm((current) => ({
@@ -192,6 +209,11 @@ export default function FormularzRezerwacjiPage() {
         </div>
       ) : (
       <form id="formularz" className="form-card" onSubmit={submitForm} aria-busy={status === "sending"}>
+        {coupon && <div className={inspirationStyles.coupon} role="status">
+          <strong>✦ Twój kupon −10% na animacje</strong>
+          <span>{coupon.code}</span>
+          <small>Kupon jest zapisany i zostanie dołączony do tego zapytania.</small>
+        </div>}
         <section className="form-section">
           <div className="section-heading">
             <span className="section-icon">01</span>

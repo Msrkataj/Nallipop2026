@@ -11,7 +11,8 @@
     "admin:test": "node --test tests/admin-security.test.mjs",
     "newsletter:preview": "node scripts/newsletter.mjs",
     "newsletter:test": "node scripts/newsletter.mjs --send-test",
-    "newsletter:check": "node --test scripts/newsletter.test.mjs"
+    "newsletter:check": "node --test scripts/newsletter.test.mjs",
+    "inspiration:test": "node --experimental-vm-modules --test tests/inspiration-*.test.mjs"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",

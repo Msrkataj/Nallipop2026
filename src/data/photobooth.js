@@ -1,7 +1,7 @@
 export const photobooth = {
   name: "Fotobudka",
   path: "/fotobudka",
-  description: "Fotobudka od 700 zł brutto na wesela, urodziny i inne wydarzenia. Transport i montaż do 50 km od centrum Warszawy w cenie. Poznaj scenografie i przykładowe kadry.",
+  description: "Fotobudka od 700 zł na wesela, urodziny i inne wydarzenia. Transport i montaż do 50 km od centrum Warszawy w cenie. Poznaj scenografie i przykładowe kadry.",
 };
 
 export const photoboothPricing = {
@@ -12,7 +12,6 @@ export const photoboothPricing = {
   ],
   extraHourPrice: 200,
   includedRadiusKm: 50,
-  priceNote: "Wszystkie ceny to kwoty brutto do zapłaty przez klienta.",
   transportNote: "Transport i montaż w promieniu 50 km od centrum Warszawy wliczone w cenę.",
 };
 
@@ -137,6 +136,6 @@ export const photoboothFaqs = [
   ["Czy mogę wybrać własne kolory i motyw?", "Tak — opowiedz nam o swoim pomyśle. Pokazane scenografie są wizualizacjami inspiracji. Dostępne tło, dekoracje, rekwizyty i możliwości personalizacji potwierdzimy w indywidualnej ofercie."],
   ["Czy w ofercie są wydruki zdjęć?", "Sposób przekazania zdjęć, możliwość wydruków, ich liczbę i wygląd ustalamy przy przygotowaniu oferty. Napisz, jaka forma pamiątki najbardziej Cię interesuje."],
   ["Ile miejsca potrzeba i jak długo działa fotobudka?", "Przestrzeń zależy od wybranej aranżacji. Podaj dostępną powierzchnię, miejsce wydarzenia i planowany czas zabawy. Uzgodnimy ustawienie, dostęp do zasilania oraz zakres obsługi."],
-  ["Ile kosztuje fotobudka?", "1 godzina kosztuje 700 zł, 2 godziny — 900 zł, a 3 godziny — 1100 zł. Każda kolejna godzina po trzech godzinach to 200 zł. Wszystkie ceny to kwoty brutto do zapłaty przez klienta. Transport i montaż w promieniu 50 km od centrum Warszawy są wliczone w cenę."],
+  ["Ile kosztuje fotobudka?", "1 godzina kosztuje 700 zł, 2 godziny — 900 zł, a 3 godziny — 1100 zł. Każda kolejna godzina po trzech godzinach to 200 zł. Transport i montaż w promieniu 50 km od centrum Warszawy są wliczone w cenę."],
   ["Czy transport i montaż są w cenie?", "Tak. Transport i montaż w promieniu 50 km od centrum Warszawy są wliczone w podane ceny. Jeśli planujesz wydarzenie dalej, podaj lokalizację w zapytaniu — ustalimy warunki dojazdu."],
 ];

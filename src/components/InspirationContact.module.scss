@@ -1,0 +1,8 @@
+.idea, .coupon { display: flex; flex-direction: column; gap: 5px; padding: 16px 18px; margin-bottom: 20px; border-radius: 15px; line-height: 1.5; }
+.idea { background: #f3edfc; color: #66458c; border: 1px solid #e3d5f5; }
+.idea span { font-size: 11px; }
+.idea strong { font-size: 16px; }
+.coupon { background: #fff4cf; color: #78531e; border: 1px dashed #d4a238; }
+.coupon strong { font-size: 14px; }
+.coupon span { font-size: 12px; font-weight: 750; letter-spacing: 1px; }
+.coupon small { font-size: 12px; }
