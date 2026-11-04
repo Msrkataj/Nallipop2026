@@ -115,7 +115,7 @@ export default function FormularzRezerwacjiPage() {
         ? photoboothPricing.packages.find((item) => String(item.hours) === searchParams.get("czas-fotobudki"))
         : null;
       const packageNote = photoPackage
-        ? ` Czas działania fotobudki: ${photoPackage.label}. Cena: ${photoPackage.price} zł brutto. ${photoboothPricing.transportNote}`
+        ? ` Czas działania fotobudki: ${photoPackage.label}. Cena: ${photoPackage.price} zł. ${photoboothPricing.transportNote}`
         : "";
 
       setForm((current) => ({
